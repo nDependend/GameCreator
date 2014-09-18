@@ -22,16 +22,16 @@ namespace GameCreator
                         switch (parameter.ToString())
                         {
                             case "Class":
-                                MainViewModel.Instance.Classes.Add(new GC_Class(name));
+                                MainViewModel.Instance.CurrentGame.Classes.Add(new GC_Class(name));
                                 break;
                             case "Image":
-                                MainViewModel.Instance.Images.Add(new GC_Image(name));
+                                MainViewModel.Instance.CurrentGame.Images.Add(new GC_Image(name));
                                 break;
                             case "Object":
-                                MainViewModel.Instance.Objects.Add(new GC_Object(name));
+                                MainViewModel.Instance.CurrentGame.Objects.Add(new GC_Object(name));
                                 break;
                             case "Level":
-                                MainViewModel.Instance.Levels.Add(new GC_Level(name));
+                                MainViewModel.Instance.CurrentGame.Levels.Add(new GC_Level(name));
                                 break;
                         }
                     });
@@ -39,7 +39,27 @@ namespace GameCreator
             }
         }
 
-
+        private RelayCommand _LoadGame;
+        public RelayCommand LoadGame
+        {
+            get
+            {
+                if (_LoadGame == null)
+                {
+                    _LoadGame = new RelayCommand(async (object parameter) =>
+                    {
+                        switch (parameter.ToString())
+                        {
+                            case "New":
+                                string name = await this.ShowInputAsync(Application.Current.FindResource("NewGame").ToString(), Application.Current.FindResource("Name".ToString()) + ":");
+                                MainViewModel.Instance.CurrentGame = new Models.Game(name);
+                                break;
+                        }
+                    });
+                }
+                return _LoadGame;
+            }
+        }
 
     }
 }

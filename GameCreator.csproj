@@ -79,7 +79,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Extensions\Converter\NullObjectToBooleanConverter.cs" />
     <Compile Include="Models\Class.cs" />
+    <Compile Include="Models\Game.cs" />
     <Compile Include="Models\Image.cs" />
     <Compile Include="Models\Level.cs" />
     <Compile Include="Models\Object.cs" />

@@ -6,6 +6,7 @@
     <System:String x:Key="NewImage">New Image</System:String>
     <System:String x:Key="NewObject">New Object</System:String>
     <System:String x:Key="NewLevel">New Level</System:String>
+    <System:String x:Key="NewGame">New Game</System:String>
 
     <!-- General -->
     <System:String x:Key="Name">Name</System:String>

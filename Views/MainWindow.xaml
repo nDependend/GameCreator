@@ -3,26 +3,44 @@
                       xmlns:local="clr-namespace:GameCreator"
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
-                      Title="GameCreator"
+                      xmlns:Converter="clr-namespace:GameCreator.Extensions.Converter"
                       Height="600"
                       Width="800"
                       GlowBrush="{DynamicResource AccentColorBrush}"
                       DataContext="{x:Static local:MainViewModel.Instance}">
+    <Window.Resources>
+        <Converter:NullObjectToBooleanConverter x:Key="NullObjectToBooleanConverter" />
+    </Window.Resources>
+    <Window.Style>
+        <Style TargetType="Window">
+            <Setter Property="Title" Value="GameCreator" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=CurrentGame,Converter={StaticResource NullObjectToBooleanConverter}}" Value="True">
+                    <Setter Property="Title">
+                        <Setter.Value>
+                            <Binding StringFormat="GameCreator - {0}" Path="CurrentGame.Name" />
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Style>
+
     <Grid>
         <DockPanel>
             <StackPanel DockPanel.Dock="Top">
                 <Menu>
                     <MenuItem Header="Game" >
-                        <MenuItem Header="New" />
+                        <MenuItem Header="New" Command="{Binding ElementName=window,Path=LoadGame}" CommandParameter="New" />
                         <MenuItem Header="Open" />
                         <MenuItem Header="Save" />
                         <MenuItem Header="Close" />
                     </MenuItem>
                     <MenuItem Header="Add" >
-                        <MenuItem Header="Class" Command="{Binding ElementName=window,Path=AddItem}" CommandParameter="Class" />
-                        <MenuItem Header="Image" Command="{Binding ElementName=window,Path=AddItem}" CommandParameter="Image" />
-                        <MenuItem Header="Object" Command="{Binding ElementName=window,Path=AddItem}" CommandParameter="Object" />
-                        <MenuItem Header="Level" Command="{Binding ElementName=window,Path=AddItem}" CommandParameter="Level" />
+                        <MenuItem Header="Class" Command="{Binding ElementName=window,Path=AddItem}" CommandParameter="Class" IsEnabled="{Binding CurrentGame, Converter={StaticResource NullObjectToBooleanConverter}}" />
+                        <MenuItem Header="Image" Command="{Binding ElementName=window,Path=AddItem}" CommandParameter="Image" IsEnabled="{Binding CurrentGame, Converter={StaticResource NullObjectToBooleanConverter}}" />
+                        <MenuItem Header="Object" Command="{Binding ElementName=window,Path=AddItem}" CommandParameter="Object" IsEnabled="{Binding CurrentGame, Converter={StaticResource NullObjectToBooleanConverter}}" />
+                        <MenuItem Header="Level" Command="{Binding ElementName=window,Path=AddItem}" CommandParameter="Level" IsEnabled="{Binding CurrentGame, Converter={StaticResource NullObjectToBooleanConverter}}" />
                     </MenuItem>
                     <MenuItem Header="View" />
                     <MenuItem Header="Extras" />
@@ -41,10 +59,10 @@
                 </ToolBar>
             </StackPanel>
             <TreeView DockPanel.Dock="Left" Width="150" HorizontalAlignment="Left">
-                <TreeViewItem Header="Classes" ItemsSource="{Binding Path=Classes}" DisplayMemberPath="Name" />
-                <TreeViewItem Header="Images" ItemsSource="{Binding Path=Images}" DisplayMemberPath="Name" />
-                <TreeViewItem Header="Objects" ItemsSource="{Binding Path=Objects}" DisplayMemberPath="Name" />
-                <TreeViewItem Header="Levels" ItemsSource="{Binding Path=Levels}" DisplayMemberPath="Name" />
+                <TreeViewItem Header="Classes" ItemsSource="{Binding Path=CurrentGame.Classes}" DisplayMemberPath="Name" />
+                <TreeViewItem Header="Images" ItemsSource="{Binding Path=CurrentGame.Images}" DisplayMemberPath="Name" />
+                <TreeViewItem Header="Objects" ItemsSource="{Binding Path=CurrentGame.Objects}" DisplayMemberPath="Name" />
+                <TreeViewItem Header="Levels" ItemsSource="{Binding Path=CurrentGame.Levels}" DisplayMemberPath="Name" />
             </TreeView>
         </DockPanel>
     </Grid>
