@@ -7,8 +7,26 @@
     <System:String x:Key="NewObject">New Object</System:String>
     <System:String x:Key="NewLevel">New Level</System:String>
     <System:String x:Key="NewGame">New Game</System:String>
+    <System:String x:Key="Class">Class</System:String>
+    <System:String x:Key="Image">Image</System:String>
+    <System:String x:Key="Object">Object</System:String>
+    <System:String x:Key="Level">Level</System:String>
+    <System:String x:Key="Game">Game</System:String>
+    <System:String x:Key="New">New</System:String>
+    <System:String x:Key="Open">Open</System:String>
+    <System:String x:Key="Save">Save</System:String>
+    <System:String x:Key="Close">Exit</System:String>
+    <System:String x:Key="Add">Add</System:String>
+    <System:String x:Key="View">View</System:String>
+    <System:String x:Key="Extras">Extras</System:String>
+    <System:String x:Key="Help">Help</System:String>
+    <System:String x:Key="Info">About</System:String>
 
     <!-- General -->
     <System:String x:Key="Name">Name</System:String>
+    <System:String x:Key="Classes">Classes</System:String>
+    <System:String x:Key="Images">Images</System:String>
+    <System:String x:Key="Objects">Objects</System:String>
+    <System:String x:Key="Levels">Levels</System:String>    
     
 </ResourceDictionary>

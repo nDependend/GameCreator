@@ -61,5 +61,20 @@ namespace GameCreator
             }
         }
 
+        private RelayCommand _CloseApplication;
+        public RelayCommand CloseApplication
+        {
+            get
+            {
+                if(_CloseApplication == null)
+                {
+                    _CloseApplication = new RelayCommand((object parameter) =>
+                    {
+                        this.Close();
+                    });
+                }
+                return _CloseApplication;
+            }
+        }
     }
 }

@@ -30,23 +30,23 @@
         <DockPanel>
             <StackPanel DockPanel.Dock="Top">
                 <Menu>
-                    <MenuItem Header="Game" >
-                        <MenuItem Header="New" Command="{Binding ElementName=window,Path=LoadGame}" CommandParameter="New" />
-                        <MenuItem Header="Open" />
-                        <MenuItem Header="Save" />
-                        <MenuItem Header="Close" />
+                    <MenuItem Header="{DynamicResource Game}" >
+                        <MenuItem Header="{DynamicResource New}" Command="{Binding ElementName=window,Path=LoadGame}" CommandParameter="New" />
+                        <MenuItem Header="{DynamicResource Open}" />
+                        <MenuItem Header="{DynamicResource Save}" />
+                        <MenuItem Header="{DynamicResource Close}" Command="{Binding ElementName=window,Path=CloseApplication}"/>
                     </MenuItem>
-                    <MenuItem Header="Add" >
-                        <MenuItem Header="Class" Command="{Binding ElementName=window,Path=AddItem}" CommandParameter="Class" IsEnabled="{Binding CurrentGame, Converter={StaticResource NullObjectToBooleanConverter}}" />
-                        <MenuItem Header="Image" Command="{Binding ElementName=window,Path=AddItem}" CommandParameter="Image" IsEnabled="{Binding CurrentGame, Converter={StaticResource NullObjectToBooleanConverter}}" />
-                        <MenuItem Header="Object" Command="{Binding ElementName=window,Path=AddItem}" CommandParameter="Object" IsEnabled="{Binding CurrentGame, Converter={StaticResource NullObjectToBooleanConverter}}" />
-                        <MenuItem Header="Level" Command="{Binding ElementName=window,Path=AddItem}" CommandParameter="Level" IsEnabled="{Binding CurrentGame, Converter={StaticResource NullObjectToBooleanConverter}}" />
+                    <MenuItem Header="{DynamicResource Add}" >
+                        <MenuItem Header="{DynamicResource Class}" Command="{Binding ElementName=window,Path=AddItem}" CommandParameter="Class" IsEnabled="{Binding CurrentGame, Converter={StaticResource NullObjectToBooleanConverter}}" />
+                        <MenuItem Header="{DynamicResource Image}" Command="{Binding ElementName=window,Path=AddItem}" CommandParameter="Image" IsEnabled="{Binding CurrentGame, Converter={StaticResource NullObjectToBooleanConverter}}" />
+                        <MenuItem Header="{DynamicResource Object}" Command="{Binding ElementName=window,Path=AddItem}" CommandParameter="Object" IsEnabled="{Binding CurrentGame, Converter={StaticResource NullObjectToBooleanConverter}}" />
+                        <MenuItem Header="{DynamicResource Level}" Command="{Binding ElementName=window,Path=AddItem}" CommandParameter="Level" IsEnabled="{Binding CurrentGame, Converter={StaticResource NullObjectToBooleanConverter}}" />
                     </MenuItem>
-                    <MenuItem Header="View" />
-                    <MenuItem Header="Extras" />
-                    <MenuItem Header="Help">
-                        <MenuItem Header="Help" />
-                        <MenuItem Header="About" />
+                    <MenuItem Header="{DynamicResource View}" />
+                    <MenuItem Header="{DynamicResource Extras}" />
+                    <MenuItem Header="{DynamicResource Help}">
+                        <MenuItem Header="{DynamicResource Help}" />
+                        <MenuItem Header="{DynamicResource Info}" />
                     </MenuItem>
                 </Menu>
                 <ToolBar>
@@ -59,10 +59,10 @@
                 </ToolBar>
             </StackPanel>
             <TreeView DockPanel.Dock="Left" Width="150" HorizontalAlignment="Left">
-                <TreeViewItem Header="Classes" ItemsSource="{Binding Path=CurrentGame.Classes}" DisplayMemberPath="Name" />
-                <TreeViewItem Header="Images" ItemsSource="{Binding Path=CurrentGame.Images}" DisplayMemberPath="Name" />
-                <TreeViewItem Header="Objects" ItemsSource="{Binding Path=CurrentGame.Objects}" DisplayMemberPath="Name" />
-                <TreeViewItem Header="Levels" ItemsSource="{Binding Path=CurrentGame.Levels}" DisplayMemberPath="Name" />
+                <TreeViewItem Header="{DynamicResource Classes}" ItemsSource="{Binding Path=CurrentGame.Classes}" DisplayMemberPath="Name" />
+                <TreeViewItem Header="{DynamicResource Images}" ItemsSource="{Binding Path=CurrentGame.Images}" DisplayMemberPath="Name" />
+                <TreeViewItem Header="{DynamicResource Objects}" ItemsSource="{Binding Path=CurrentGame.Objects}" DisplayMemberPath="Name" />
+                <TreeViewItem Header="{DynamicResource Levels}" ItemsSource="{Binding Path=CurrentGame.Levels}" DisplayMemberPath="Name" />
             </TreeView>
         </DockPanel>
     </Grid>
