@@ -1,0 +1,13 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:System="clr-namespace:System;assembly=mscorlib">
+
+    <!-- MenuItems -->
+    <System:String x:Key="NewClass">New Class</System:String>
+    <System:String x:Key="NewImage">New Image</System:String>
+    <System:String x:Key="NewObject">New Object</System:String>
+    <System:String x:Key="NewLevel">New Level</System:String>
+
+    <!-- General -->
+    <System:String x:Key="Name">Name</System:String>
+    
+</ResourceDictionary>
