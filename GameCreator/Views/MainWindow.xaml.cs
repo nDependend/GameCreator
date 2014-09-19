@@ -5,10 +5,11 @@ using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 using MahApps.Metro.Controls.Dialogs;
+using MahApps.Metro.Controls;
 
 namespace GameCreator
 {
-    public partial class MainWindow
+    public partial class MainWindow : MetroWindow
     {
         private RelayCommand _AddItem;
         public RelayCommand AddItem
