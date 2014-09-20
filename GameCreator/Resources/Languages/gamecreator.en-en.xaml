@@ -27,6 +27,14 @@
     <System:String x:Key="Classes">Classes</System:String>
     <System:String x:Key="Images">Images</System:String>
     <System:String x:Key="Objects">Objects</System:String>
-    <System:String x:Key="Levels">Levels</System:String>    
-    
+    <System:String x:Key="Levels">Levels</System:String>
+
+    <!-- ContextMenu -->
+    <System:String x:Key="Copy">Copy</System:String>
+    <System:String x:Key="Paste">Paste</System:String>
+    <System:String x:Key="Cut">Cut</System:String>
+    <System:String x:Key="Delete">Delete</System:String>
+    <System:String x:Key="Edit">Edit</System:String>
+    <System:String x:Key="DeleteAll">Delete All</System:String>
+
 </ResourceDictionary>

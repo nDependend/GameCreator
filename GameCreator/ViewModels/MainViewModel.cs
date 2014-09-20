@@ -24,7 +24,6 @@ namespace GameCreator
 
         public MainViewModel()
         {
-
         }
 
         #endregion

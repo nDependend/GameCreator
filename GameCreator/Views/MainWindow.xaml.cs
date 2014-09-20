@@ -5,11 +5,10 @@ using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 using MahApps.Metro.Controls.Dialogs;
-using MahApps.Metro.Controls;
 
 namespace GameCreator
 {
-    public partial class MainWindow : MetroWindow
+    public partial class MainWindow
     {
         private RelayCommand _AddItem;
         public RelayCommand AddItem
@@ -67,7 +66,7 @@ namespace GameCreator
         {
             get
             {
-                if(_CloseApplication == null)
+                if (_CloseApplication == null)
                 {
                     _CloseApplication = new RelayCommand((object parameter) =>
                     {
@@ -77,5 +76,67 @@ namespace GameCreator
                 return _CloseApplication;
             }
         }
+
+        private RelayCommand _DeleteAll;
+        public RelayCommand DeleteAll
+        {
+            get
+            {
+                if (_DeleteAll == null)
+                {
+                    _DeleteAll = new RelayCommand((object parameter) =>
+                    {
+                        switch (parameter.ToString())
+                        {
+                            case "Class":
+                                MainViewModel.Instance.CurrentGame.Classes.Clear();
+                                break;
+                            case "Image":
+                                MainViewModel.Instance.CurrentGame.Images.Clear();
+                                break;
+                            case "Object":
+                                MainViewModel.Instance.CurrentGame.Objects.Clear();
+                                break;
+                            case "Level":
+                                MainViewModel.Instance.CurrentGame.Levels.Clear();
+                                break;
+                        }
+                    });
+                }
+                return _DeleteAll;
+            }
+        }
+
+        private RelayCommand _CopyItem;
+        public RelayCommand CopyItem
+        {
+            get
+            {
+                if (_CopyItem == null)
+                {
+                    _CopyItem = new RelayCommand((object parameter) =>
+                    {
+                        switch (parameter.ToString())
+                        {
+                            case "Class":
+                                Clipboard.Clear();
+
+                                //Clipboard.SetData(...);
+                                break;
+                        }
+                    });
+                }
+                return _CopyItem;
+            }
+        }
+
+        /*                       <ContextMenu>
+                           <MenuItem Header="{DynamicResource Copy}" Command="{Binding ElementName=window, Path=CopyItem}" CommandParameter="Class"/>
+                           <MenuItem Header="{DynamicResource Paste}" Command="{Binding ElementName=window, Path=PasteItem}" CommandParameter="Class"/>
+                           <MenuItem Header="{DynamicResource Cut}" Command="{Binding ElementName=window, Path=CutItem}" CommandParameter="Class"/>
+                           <MenuItem Header="{DynamicResource Delete}" Command="{Binding ElementName=window, Path=DeleteItem}" CommandParameter="Class"/>
+                           <MenuItem Header="{DynamicResource Edit}" Command="{Binding ElementName=window, Path=EditItem}" CommandParameter="Class"/>
+                       </ContextMenu>*/
+
     }
 }
