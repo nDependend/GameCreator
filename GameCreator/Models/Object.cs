@@ -7,6 +7,7 @@ using System.Diagnostics;
 
 namespace GameCreator
 {
+    [Serializable]
     public class GC_Object : PropertyChangedBase
     {
         #region "Properties"
@@ -32,8 +33,12 @@ namespace GameCreator
         #endregion
         public GC_Object(string Name)
         {
-            this.Name = Name;
+            _Name = Name;
         }
 
+        public GC_Object Clone()
+        {
+            return new GC_Object(_Name);
+        }
     }
 }

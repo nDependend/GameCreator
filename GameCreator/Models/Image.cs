@@ -7,6 +7,7 @@ using System.Diagnostics;
 
 namespace GameCreator
 {
+    [Serializable]
     public class GC_Image : PropertyChangedBase
     {
         #region "Properties"
@@ -20,7 +21,12 @@ namespace GameCreator
 
         public GC_Image(string Name)
         {
-            this.Name = Name;
+            _Name = Name;
+        }
+
+        public GC_Image Clone()
+        {
+            return new GC_Image(_Name);
         }
 
     }

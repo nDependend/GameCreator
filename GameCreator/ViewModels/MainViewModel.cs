@@ -9,8 +9,14 @@ namespace GameCreator
 {
     public class MainViewModel : PropertyChangedBase
     {
+        #region Constant values
+        public const string CLASS_DATA_FORMAT = "Ndep_GC_Class";
+        public const string IMAGE_DATA_FORMAT = "Ndep_GC_Image";
+        public const string OBJECT_DATA_FORMAT = "Ndep_GC_Object";
+        public const string LEVEL_DATA_FORMAT = "Ndep_GC_Level";
+        #endregion
 
-        #region "Singleton & Constructor"
+        #region Singleton & Constructor
         private static MainViewModel _Instance;
         public static MainViewModel Instance
         {
@@ -28,7 +34,7 @@ namespace GameCreator
 
         #endregion
 
-        #region "Properties"
+        #region Properties
         private Models.Game _CurrentGame;
         public Models.Game CurrentGame
         {

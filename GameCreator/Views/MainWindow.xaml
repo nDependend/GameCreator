@@ -59,37 +59,109 @@
                 </ToolBar>
             </StackPanel>
             <TreeView DockPanel.Dock="Left" Width="150" HorizontalAlignment="Left">
-                <TreeViewItem Header="{DynamicResource Classes}" ItemsSource="{Binding Path=CurrentGame.Classes}" DisplayMemberPath="Name" Tag="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
+                <TreeViewItem Header="{DynamicResource Classes}" ItemsSource="{Binding Path=CurrentGame.Classes}" Tag="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}" HorizontalContentAlignment="Stretch">
                     <TreeViewItem.ContextMenu>
                         <ContextMenu>
                             <MenuItem Header="{DynamicResource NewClass}" Command="{Binding Path=PlacementTarget.Tag.AddItem, RelativeSource={RelativeSource AncestorType=ContextMenu}}" CommandParameter="Class" IsEnabled="{Binding CurrentGame, Converter={StaticResource NullObjectToBooleanConverter}}" />
+                            <MenuItem Header="{DynamicResource Paste}" Command="{Binding Path=PlacementTarget.Tag.PasteItem, RelativeSource={RelativeSource AncestorType=ContextMenu}}" CommandParameter="Class" IsEnabled="{Binding CurrentGame, Converter={StaticResource NullObjectToBooleanConverter}}" />
                             <MenuItem Header="{DynamicResource DeleteAll}" Command="{Binding Path=PlacementTarget.Tag.DeleteAll, RelativeSource={RelativeSource AncestorType=ContextMenu}}" CommandParameter="Class" IsEnabled="{Binding CurrentGame, Converter={StaticResource NullObjectToBooleanConverter}}" />
                         </ContextMenu>
                     </TreeViewItem.ContextMenu>
+                    <TreeViewItem.ItemTemplate>
+                        <DataTemplate>
+                            <Border Background="Transparent" Tag="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
+                                <TextBlock Text="{Binding Name}" Margin="0" Padding="0,3,0,3" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+                                <Border.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Header="{DynamicResource Edit}" Command="{Binding Path=PlacementTarget.Tag.EditItem, RelativeSource={RelativeSource AncestorType=ContextMenu}}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}, Path=PlacementTarget.DataContext}"/>
+                                        <MenuItem Header="{DynamicResource Copy}" Command="{Binding Path=PlacementTarget.Tag.CopyItem, RelativeSource={RelativeSource AncestorType=ContextMenu}}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}, Path=PlacementTarget.DataContext}"/>
+                                        <MenuItem Header="{DynamicResource Paste}" Command="{Binding Path=PlacementTarget.Tag.PasteItem, RelativeSource={RelativeSource AncestorType=ContextMenu}}" CommandParameter="Class"/>
+                                        <MenuItem Header="{DynamicResource Delete}" Command="{Binding Path=PlacementTarget.Tag.DeleteItem, RelativeSource={RelativeSource AncestorType=ContextMenu}}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}, Path=PlacementTarget.DataContext}"/>
+                                    </ContextMenu>
+                                </Border.ContextMenu>
+                            </Border>
+                        </DataTemplate>
+                    </TreeViewItem.ItemTemplate>
                 </TreeViewItem>
-                <TreeViewItem Header="{DynamicResource Images}" ItemsSource="{Binding Path=CurrentGame.Images}" DisplayMemberPath="Name" Tag="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
+                <TreeViewItem Header="{DynamicResource Images}" ItemsSource="{Binding Path=CurrentGame.Images}" Tag="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}" HorizontalContentAlignment="Stretch">
                     <TreeViewItem.ContextMenu>
                         <ContextMenu>
                             <MenuItem Header="{DynamicResource NewImage}" Command="{Binding Path=PlacementTarget.Tag.AddItem, RelativeSource={RelativeSource AncestorType=ContextMenu}}" CommandParameter="Image" IsEnabled="{Binding CurrentGame, Converter={StaticResource NullObjectToBooleanConverter}}" />
+                            <MenuItem Header="{DynamicResource Paste}" Command="{Binding Path=PlacementTarget.Tag.PasteItem, RelativeSource={RelativeSource AncestorType=ContextMenu}}" CommandParameter="Image" IsEnabled="{Binding CurrentGame, Converter={StaticResource NullObjectToBooleanConverter}}" />
                             <MenuItem Header="{DynamicResource DeleteAll}" Command="{Binding Path=PlacementTarget.Tag.DeleteAll, RelativeSource={RelativeSource AncestorType=ContextMenu}}" CommandParameter="Image" IsEnabled="{Binding CurrentGame, Converter={StaticResource NullObjectToBooleanConverter}}" />
                         </ContextMenu>
-                    </TreeViewItem.ContextMenu>                    
+                    </TreeViewItem.ContextMenu>
+                    <TreeViewItem.ItemTemplate>
+                        <DataTemplate>
+                            <Border Background="Transparent" Tag="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
+                                <TextBlock Text="{Binding Name}" Margin="0" Padding="0,3,0,3" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+                                <Border.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Header="{DynamicResource Edit}" 
+                                                  Command="{Binding Path=PlacementTarget.Tag.EditItem, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
+                                                  CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}, Path=PlacementTarget.DataContext}"/>
+                                        <MenuItem Header="{DynamicResource Copy}" 
+                                                  Command="{Binding Path=PlacementTarget.Tag.CopyItem, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
+                                                  CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}, Path=PlacementTarget.DataContext}"/>
+                                        <MenuItem Header="{DynamicResource Paste}" 
+                                                  Command="{Binding Path=PlacementTarget.Tag.PasteItem, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
+                                                  CommandParameter="Image"/>
+                                        <MenuItem Header="{DynamicResource Delete}" 
+                                                  Command="{Binding Path=PlacementTarget.Tag.DeleteItem, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
+                                                  CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}, Path=PlacementTarget.DataContext}"/>
+                                    </ContextMenu>
+                                </Border.ContextMenu>
+                            </Border>
+                        </DataTemplate>
+                    </TreeViewItem.ItemTemplate>
                 </TreeViewItem>
-                <TreeViewItem Header="{DynamicResource Objects}" ItemsSource="{Binding Path=CurrentGame.Objects}" DisplayMemberPath="Name" Tag="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
+                <TreeViewItem Header="{DynamicResource Objects}" ItemsSource="{Binding Path=CurrentGame.Objects}" Tag="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}" HorizontalContentAlignment="Stretch">
                     <TreeViewItem.ContextMenu>
                         <ContextMenu>
                             <MenuItem Header="{DynamicResource NewObject}" Command="{Binding Path=PlacementTarget.Tag.AddItem, RelativeSource={RelativeSource AncestorType=ContextMenu}}" CommandParameter="Object" IsEnabled="{Binding CurrentGame, Converter={StaticResource NullObjectToBooleanConverter}}" />
+                            <MenuItem Header="{DynamicResource Paste}" Command="{Binding Path=PlacementTarget.Tag.PasteItem, RelativeSource={RelativeSource AncestorType=ContextMenu}}" CommandParameter="Object" IsEnabled="{Binding CurrentGame, Converter={StaticResource NullObjectToBooleanConverter}}" />
                             <MenuItem Header="{DynamicResource DeleteAll}" Command="{Binding Path=PlacementTarget.Tag.DeleteAll, RelativeSource={RelativeSource AncestorType=ContextMenu}}" CommandParameter="Object" IsEnabled="{Binding CurrentGame, Converter={StaticResource NullObjectToBooleanConverter}}" />
                         </ContextMenu>
                     </TreeViewItem.ContextMenu>
+                    <TreeViewItem.ItemTemplate>
+                        <DataTemplate>
+                            <Border Background="Transparent" Tag="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
+                                <TextBlock Text="{Binding Name}" Margin="0" Padding="0,3,0,3" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+                                <Border.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Header="{DynamicResource Edit}" Command="{Binding Path=PlacementTarget.Tag.EditItem, RelativeSource={RelativeSource AncestorType=ContextMenu}}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}, Path=PlacementTarget.DataContext}"/>
+                                        <MenuItem Header="{DynamicResource Copy}" Command="{Binding Path=PlacementTarget.Tag.CopyItem, RelativeSource={RelativeSource AncestorType=ContextMenu}}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}, Path=PlacementTarget.DataContext}"/>
+                                        <MenuItem Header="{DynamicResource Paste}" Command="{Binding Path=PlacementTarget.Tag.PasteItem, RelativeSource={RelativeSource AncestorType=ContextMenu}}" CommandParameter="Object"/>
+                                        <MenuItem Header="{DynamicResource Delete}" Command="{Binding Path=PlacementTarget.Tag.DeleteItem, RelativeSource={RelativeSource AncestorType=ContextMenu}}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}, Path=PlacementTarget.DataContext}"/>
+                                    </ContextMenu>
+                                </Border.ContextMenu>
+                            </Border>
+                        </DataTemplate>
+                    </TreeViewItem.ItemTemplate>
                 </TreeViewItem>
-                <TreeViewItem Header="{DynamicResource Levels}" ItemsSource="{Binding Path=CurrentGame.Levels}" DisplayMemberPath="Name" Tag="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
+                <TreeViewItem Header="{DynamicResource Levels}" ItemsSource="{Binding Path=CurrentGame.Levels}" Tag="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center">
                     <TreeViewItem.ContextMenu>
                         <ContextMenu>
                             <MenuItem Header="{DynamicResource NewLevel}" Command="{Binding Path=PlacementTarget.Tag.AddItem, RelativeSource={RelativeSource AncestorType=ContextMenu}}" CommandParameter="Level" IsEnabled="{Binding CurrentGame, Converter={StaticResource NullObjectToBooleanConverter}}" />
+                            <MenuItem Header="{DynamicResource Paste}" Command="{Binding Path=PlacementTarget.Tag.PasteItem, RelativeSource={RelativeSource AncestorType=ContextMenu}}" CommandParameter="Level" IsEnabled="{Binding CurrentGame, Converter={StaticResource NullObjectToBooleanConverter}}" />
                             <MenuItem Header="{DynamicResource DeleteAll}" Command="{Binding Path=PlacementTarget.Tag.DeleteAll, RelativeSource={RelativeSource AncestorType=ContextMenu}}" CommandParameter="Level" IsEnabled="{Binding CurrentGame, Converter={StaticResource NullObjectToBooleanConverter}}" />
                         </ContextMenu>
                     </TreeViewItem.ContextMenu>
+                    <TreeViewItem.ItemTemplate>
+                        <DataTemplate>
+                            <Border Background="Transparent" Tag="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
+                                <TextBlock Text="{Binding Name}" Margin="0" Padding="0,3,0,3" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+                                <Border.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Header="{DynamicResource Edit}" Command="{Binding Path=PlacementTarget.Tag.EditItem, RelativeSource={RelativeSource AncestorType=ContextMenu}}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}, Path=PlacementTarget.DataContext}"/>
+                                        <MenuItem Header="{DynamicResource Copy}" Command="{Binding Path=PlacementTarget.Tag.CopyItem, RelativeSource={RelativeSource AncestorType=ContextMenu}}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}, Path=PlacementTarget.DataContext}"/>
+                                        <MenuItem Header="{DynamicResource Paste}" Command="{Binding Path=PlacementTarget.Tag.PasteItem, RelativeSource={RelativeSource AncestorType=ContextMenu}}" CommandParameter="Level"/>
+                                        <MenuItem Header="{DynamicResource Delete}" Command="{Binding Path=PlacementTarget.Tag.DeleteItem, RelativeSource={RelativeSource AncestorType=ContextMenu}}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}, Path=PlacementTarget.DataContext}"/>
+                                    </ContextMenu>
+                                </Border.ContextMenu>
+                            </Border>
+                        </DataTemplate>
+                    </TreeViewItem.ItemTemplate>
                 </TreeViewItem>
             </TreeView>
         </DockPanel>

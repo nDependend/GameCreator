@@ -5,11 +5,24 @@ using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 using MahApps.Metro.Controls.Dialogs;
+using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace GameCreator
 {
+    [Serializable]
+    internal class TestClass
+    {
+        string name;
+        public string Name { 
+            get { return name; }
+            set { name = value; }
+        }
+    }
+
     public partial class MainWindow
     {
+
         private RelayCommand _AddItem;
         public RelayCommand AddItem
         {
@@ -18,6 +31,7 @@ namespace GameCreator
                 if (_AddItem == null)
                     _AddItem = new RelayCommand(async (object parameter) =>
                     {
+                        if (parameter == null) return;
                         string name = await this.ShowInputAsync(Application.Current.FindResource("New" + parameter.ToString()).ToString(), Application.Current.FindResource("Name".ToString()) + ":");
                         switch (parameter.ToString())
                         {
@@ -48,6 +62,7 @@ namespace GameCreator
                 {
                     _LoadGame = new RelayCommand(async (object parameter) =>
                     {
+                        if (parameter == null) return;
                         switch (parameter.ToString())
                         {
                             case "New":
@@ -86,6 +101,14 @@ namespace GameCreator
                 {
                     _DeleteAll = new RelayCommand((object parameter) =>
                     {
+                        if (parameter == null)
+                        {
+                            MainViewModel.Instance.CurrentGame.Classes.Clear();
+                            MainViewModel.Instance.CurrentGame.Images.Clear();
+                            MainViewModel.Instance.CurrentGame.Objects.Clear();
+                            MainViewModel.Instance.CurrentGame.Levels.Clear();
+                            return;
+                        }
                         switch (parameter.ToString())
                         {
                             case "Class":
@@ -107,6 +130,50 @@ namespace GameCreator
             }
         }
 
+        private RelayCommand _DeleteItem;
+        public RelayCommand DeleteItem
+        {
+            get
+            {
+                if(_DeleteItem == null)
+                {
+                    _DeleteItem = new RelayCommand((object item) =>
+                    {
+                        if(item == null)
+                            return;
+                        if (item.GetType() == typeof(GC_Class))
+                            MainViewModel.Instance.CurrentGame.Classes.Remove(item as GC_Class);
+                        else if (item.GetType() == typeof(GC_Image))
+                            MainViewModel.Instance.CurrentGame.Images.Remove(item as GC_Image);
+                        else if (item.GetType() == typeof(GC_Object))
+                            MainViewModel.Instance.CurrentGame.Objects.Remove(item as GC_Object);
+                        else if (item.GetType() == typeof(GC_Level))
+                            MainViewModel.Instance.CurrentGame.Levels.Remove(item as GC_Level);
+                    });
+                }
+                return _DeleteItem;
+            }
+        }
+
+        private RelayCommand _EditItem;
+        public RelayCommand EditItem
+        {
+            get
+            {
+                if(_EditItem == null)
+                {
+                    _EditItem = new RelayCommand((object item) =>
+                    {
+                        if (item == null)
+                            return;
+                        
+                        
+                    });
+                }
+                return _EditItem;
+            }
+        }
+
         private RelayCommand _CopyItem;
         public RelayCommand CopyItem
         {
@@ -114,15 +181,25 @@ namespace GameCreator
             {
                 if (_CopyItem == null)
                 {
-                    _CopyItem = new RelayCommand((object parameter) =>
+                    _CopyItem = new RelayCommand((object item) =>
                     {
-                        switch (parameter.ToString())
+                        if (item == null)
+                            return;
+                        if(item.GetType() == typeof(GC_Class))
                         {
-                            case "Class":
-                                Clipboard.Clear();
-
-                                //Clipboard.SetData(...);
-                                break;
+                            Clipboard.SetData(MainViewModel.CLASS_DATA_FORMAT, (item as GC_Class).Clone());
+                        }
+                        else if(item.GetType() == typeof(GC_Image))
+                        {
+                            Clipboard.SetData(MainViewModel.IMAGE_DATA_FORMAT, (item as GC_Image).Clone());
+                        }
+                        else if(item.GetType() == typeof(GC_Object))
+                        {
+                            Clipboard.SetData(MainViewModel.OBJECT_DATA_FORMAT, (item as GC_Object).Clone());
+                        }
+                        else if(item.GetType() == typeof(GC_Level))
+                        {
+                            Clipboard.SetData(MainViewModel.LEVEL_DATA_FORMAT, (item as GC_Level).Clone());
                         }
                     });
                 }
@@ -130,13 +207,60 @@ namespace GameCreator
             }
         }
 
-        /*                       <ContextMenu>
-                           <MenuItem Header="{DynamicResource Copy}" Command="{Binding ElementName=window, Path=CopyItem}" CommandParameter="Class"/>
-                           <MenuItem Header="{DynamicResource Paste}" Command="{Binding ElementName=window, Path=PasteItem}" CommandParameter="Class"/>
-                           <MenuItem Header="{DynamicResource Cut}" Command="{Binding ElementName=window, Path=CutItem}" CommandParameter="Class"/>
-                           <MenuItem Header="{DynamicResource Delete}" Command="{Binding ElementName=window, Path=DeleteItem}" CommandParameter="Class"/>
-                           <MenuItem Header="{DynamicResource Edit}" Command="{Binding ElementName=window, Path=EditItem}" CommandParameter="Class"/>
-                       </ContextMenu>*/
+        private RelayCommand _PasteItem;
+        public RelayCommand PasteItem
+        {
+            get
+            {
+                if(_PasteItem == null)
+                {
+                    _PasteItem = new RelayCommand((object item) =>
+                    {
+                        //----------------Error-------------------------//
+                        if (item == null)
+                            return;
+                        //--------------Clicked on header OR item---------------------//
+                        switch((string)item)
+                        {
+                            case "Class":
+                                if (Clipboard.ContainsData(MainViewModel.CLASS_DATA_FORMAT))
+                                {
+                                    GC_Class clazz = Clipboard.GetData(MainViewModel.CLASS_DATA_FORMAT) as GC_Class;
+                                    if (clazz != null)
+                                        MainViewModel.Instance.CurrentGame.Classes.Add(clazz);
+                                }
+                                break;
+                            case "Image":
+                                if (Clipboard.ContainsData(MainViewModel.IMAGE_DATA_FORMAT))
+                                {
+                                    GC_Image image = Clipboard.GetData(MainViewModel.IMAGE_DATA_FORMAT) as GC_Image;
+                                    if (image != null)
+                                        MainViewModel.Instance.CurrentGame.Images.Add(image);
+                                }
+                                break;
+                            case "Object":
+                                if (Clipboard.ContainsData(MainViewModel.OBJECT_DATA_FORMAT))
+                                {
+                                    GC_Object obj = Clipboard.GetData(MainViewModel.OBJECT_DATA_FORMAT) as GC_Object;
+                                    if (obj != null)
+                                        MainViewModel.Instance.CurrentGame.Objects.Add(obj);
+                                }
+                                break;
+                            case "Level":
+                                if (Clipboard.ContainsData(MainViewModel.LEVEL_DATA_FORMAT))
+                                {
+                                    GC_Level level = Clipboard.GetData(MainViewModel.LEVEL_DATA_FORMAT) as GC_Level;
+                                    if (level != null)
+                                        MainViewModel.Instance.CurrentGame.Levels.Add(level);
+                                }
+                                break;
+                        }
+                    });
+                }
+                return _PasteItem;
+            }
+        }
+
 
     }
 }
