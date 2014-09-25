@@ -6,9 +6,12 @@ using System.Threading.Tasks;
 using System.Data;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace GameCreator.Models
 {
+    [Serializable]
     public class Game : PropertyChangedBase
     {
         public string Name { get; set; }
@@ -16,6 +19,15 @@ namespace GameCreator.Models
         public Game(string Name)
         {
             this.Name = Name;
+        }
+
+        public Game Clone()
+        {
+            Stream stream = new MemoryStream();
+            BinaryFormatter formatter = new BinaryFormatter();
+            formatter.Serialize(stream, this);
+            stream.Seek(0, SeekOrigin.Begin);
+            return formatter.Deserialize(stream) as Game;
         }
 
         #region "Properties"

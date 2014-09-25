@@ -14,6 +14,7 @@ namespace GameCreator
     [Serializable()]
     public class PropertyChangedBase : INotifyPropertyChanged
     {
+        [field: NonSerialized]
         public event PropertyChangedEventHandler PropertyChanged;
         public bool SetProperty<T>(T value, ref T field, Expression<Func<object>> property)
         {

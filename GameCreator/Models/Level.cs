@@ -4,6 +4,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
 
 namespace GameCreator
 {
@@ -21,12 +23,16 @@ namespace GameCreator
 
         public GC_Level(string Name)
         {
-            _Name = Name;
+            this.Name = Name;
         }
 
         public GC_Level Clone()
         {
-            return new GC_Level(_Name);
+            Stream stream = new MemoryStream();
+            BinaryFormatter formatter = new BinaryFormatter();
+            formatter.Serialize(stream, this);
+            stream.Seek(0, SeekOrigin.Begin);
+            return formatter.Deserialize(stream) as GC_Level;
         }
     }
 }

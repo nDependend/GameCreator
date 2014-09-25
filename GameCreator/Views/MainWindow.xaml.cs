@@ -7,6 +7,7 @@ using System.Diagnostics;
 using MahApps.Metro.Controls.Dialogs;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Linq;
 
 namespace GameCreator
 {
@@ -33,6 +34,7 @@ namespace GameCreator
                     {
                         if (parameter == null) return;
                         string name = await this.ShowInputAsync(Application.Current.FindResource("New" + parameter.ToString()).ToString(), Application.Current.FindResource("Name".ToString()) + ":");
+                        if (name == null) return;
                         switch (parameter.ToString())
                         {
                             case "Class":
@@ -67,7 +69,8 @@ namespace GameCreator
                         {
                             case "New":
                                 string name = await this.ShowInputAsync(Application.Current.FindResource("NewGame").ToString(), Application.Current.FindResource("Name".ToString()) + ":");
-                                MainViewModel.Instance.CurrentGame = new Models.Game(name);
+                                if(name != null)
+                                    MainViewModel.Instance.CurrentGame = new Models.Game(name);
                                 break;
                         }
                     });
@@ -207,6 +210,23 @@ namespace GameCreator
             }
         }
 
+        private RelayCommand _CutItem;
+        public RelayCommand CutItem
+        {
+            get
+            {
+                if(_CutItem == null)
+                {
+                    _CutItem = new RelayCommand((object item) =>
+                    {
+                        _CopyItem.Execute(item);
+                        _DeleteItem.Execute(item);
+                    });
+                }
+                return _CutItem;
+            }
+        }
+
         private RelayCommand _PasteItem;
         public RelayCommand PasteItem
         {
@@ -227,7 +247,11 @@ namespace GameCreator
                                 {
                                     GC_Class clazz = Clipboard.GetData(MainViewModel.CLASS_DATA_FORMAT) as GC_Class;
                                     if (clazz != null)
+                                    {
+                                        while (MainViewModel.Instance.CurrentGame.Classes.Select(x => x.Name).Contains(clazz.Name))
+                                            clazz.Name += " - " + Application.Current.FindResource("CopyOf").ToString();
                                         MainViewModel.Instance.CurrentGame.Classes.Add(clazz);
+                                    }
                                 }
                                 break;
                             case "Image":
@@ -235,7 +259,11 @@ namespace GameCreator
                                 {
                                     GC_Image image = Clipboard.GetData(MainViewModel.IMAGE_DATA_FORMAT) as GC_Image;
                                     if (image != null)
+                                    {
+                                        while (MainViewModel.Instance.CurrentGame.Images.Select(x => x.Name).Contains(image.Name))
+                                            image.Name += " - " + Application.Current.FindResource("CopyOf").ToString();
                                         MainViewModel.Instance.CurrentGame.Images.Add(image);
+                                    }
                                 }
                                 break;
                             case "Object":
@@ -243,7 +271,11 @@ namespace GameCreator
                                 {
                                     GC_Object obj = Clipboard.GetData(MainViewModel.OBJECT_DATA_FORMAT) as GC_Object;
                                     if (obj != null)
+                                    {
+                                        while (MainViewModel.Instance.CurrentGame.Objects.Select(x => x.Name).Contains(obj.Name))
+                                            obj.Name += " - " + Application.Current.FindResource("CopyOf").ToString();
                                         MainViewModel.Instance.CurrentGame.Objects.Add(obj);
+                                    }  
                                 }
                                 break;
                             case "Level":
@@ -251,7 +283,11 @@ namespace GameCreator
                                 {
                                     GC_Level level = Clipboard.GetData(MainViewModel.LEVEL_DATA_FORMAT) as GC_Level;
                                     if (level != null)
+                                    {
+                                        while (MainViewModel.Instance.CurrentGame.Levels.Select(x => x.Name).Contains(level.Name))
+                                            level.Name += " - " + Application.Current.FindResource("CopyOf").ToString();
                                         MainViewModel.Instance.CurrentGame.Levels.Add(level);
+                                    }
                                 }
                                 break;
                         }
@@ -260,7 +296,5 @@ namespace GameCreator
                 return _PasteItem;
             }
         }
-
-
     }
 }

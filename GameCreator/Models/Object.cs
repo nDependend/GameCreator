@@ -4,6 +4,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
 
 namespace GameCreator
 {
@@ -38,7 +40,11 @@ namespace GameCreator
 
         public GC_Object Clone()
         {
-            return new GC_Object(_Name);
+            Stream stream = new MemoryStream();
+            BinaryFormatter formatter = new BinaryFormatter();
+            formatter.Serialize(stream, this);
+            stream.Seek(0, SeekOrigin.Begin);
+            return formatter.Deserialize(stream) as GC_Object;
         }
     }
 }

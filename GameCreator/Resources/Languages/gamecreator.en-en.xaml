@@ -28,6 +28,7 @@
     <System:String x:Key="Images">Images</System:String>
     <System:String x:Key="Objects">Objects</System:String>
     <System:String x:Key="Levels">Levels</System:String>
+    <System:String x:Key="CopyOf">Copy</System:String>
 
     <!-- ContextMenu -->
     <System:String x:Key="Copy">Copy</System:String>
