@@ -95,7 +95,10 @@
                     <TreeViewItem.ItemTemplate>
                         <DataTemplate>
                             <Border Background="Transparent" Tag="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
-                                <TextBlock Text="{Binding Name}" Margin="0" Padding="0,3,0,3" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+                                <DockPanel>
+                                    <Image Source="{Binding Image}" DockPanel.Dock="Left" Width="{Binding Image.Size.Width}" Height="{Binding Image.Size.Height}"/>
+                                    <TextBlock Text="{Binding Name}" Margin="0" Padding="0,3,0,3" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+                                </DockPanel>
                                 <Border.ContextMenu>
                                     <ContextMenu>
                                         <MenuItem Header="{DynamicResource Edit}" Command="{Binding Path=PlacementTarget.Tag.EditItem, RelativeSource={RelativeSource AncestorType=ContextMenu}}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}, Path=PlacementTarget.DataContext}"/>

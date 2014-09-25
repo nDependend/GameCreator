@@ -6,11 +6,12 @@ using System.Data;
 using System.Diagnostics;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using System.Drawing;
 
 namespace GameCreator
 {
     [Serializable]
-    public class GC_Image : PropertyChangedBase
+    public class GC_Image : PropertyChangedBase, IDisposable
     {
         #region "Properties"
         private string _Name;
@@ -18,6 +19,13 @@ namespace GameCreator
         {
             get { return _Name; }
             set { SetProperty(value, ref _Name); }
+        }
+
+        private Bitmap _Image;
+        public Bitmap Image
+        {
+            get { return _Image; }
+            set { SetProperty(value, ref _Image);  }
         }
         #endregion
 
@@ -35,5 +43,9 @@ namespace GameCreator
             return formatter.Deserialize(stream) as GC_Image;
         }
 
+        public void Dispose()
+        {
+            _Image.Dispose();
+        }
     }
 }

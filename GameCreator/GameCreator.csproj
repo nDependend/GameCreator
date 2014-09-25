@@ -60,6 +60,7 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\libraries\System.Windows.Interactivity.dll</HintPath>
@@ -82,9 +83,12 @@
     </ApplicationDefinition>
     <Compile Include="Extensions\Converter\NullObjectToBooleanConverter.cs" />
     <Compile Include="Models\Class.cs" />
+    <Compile Include="Models\Event.cs" />
     <Compile Include="Models\Game.cs" />
     <Compile Include="Models\Image.cs" />
+    <Compile Include="Models\Information.cs" />
     <Compile Include="Models\Level.cs" />
+    <Compile Include="Models\Method.cs" />
     <Compile Include="Models\Object.cs" />
     <Compile Include="ViewModelBase\PropertyChangedBase.cs" />
     <Compile Include="ViewModelBase\RelayCommand.cs" />

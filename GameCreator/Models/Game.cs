@@ -14,23 +14,14 @@ namespace GameCreator.Models
     [Serializable]
     public class Game : PropertyChangedBase
     {
-        public string Name { get; set; }
-
-        public Game(string Name)
-        {
-            this.Name = Name;
-        }
-
-        public Game Clone()
-        {
-            Stream stream = new MemoryStream();
-            BinaryFormatter formatter = new BinaryFormatter();
-            formatter.Serialize(stream, this);
-            stream.Seek(0, SeekOrigin.Begin);
-            return formatter.Deserialize(stream) as Game;
-        }
-
         #region "Properties"
+        private string _Name;
+        public string Name 
+        { 
+            get { return _Name; }
+            set { SetProperty(value, ref _Name); } 
+        }
+
         private ObservableCollection<GC_Class> _Classes = new ObservableCollection<GC_Class>();
         public ObservableCollection<GC_Class> Classes
         {
@@ -56,5 +47,20 @@ namespace GameCreator.Models
             set { SetProperty(value, ref _Levels); }
         }
         #endregion
+
+        public Game(string Name)
+        {
+            this.Name = Name;
+        }
+
+        public Game Clone()
+        {
+            Stream stream = new MemoryStream();
+            BinaryFormatter formatter = new BinaryFormatter();
+            formatter.Serialize(stream, this);
+            stream.Seek(0, SeekOrigin.Begin);
+            return formatter.Deserialize(stream) as Game;
+        }
+
     }
 }

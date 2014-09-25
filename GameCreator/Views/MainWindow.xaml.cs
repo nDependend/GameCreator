@@ -11,16 +11,6 @@ using System.Linq;
 
 namespace GameCreator
 {
-    [Serializable]
-    internal class TestClass
-    {
-        string name;
-        public string Name { 
-            get { return name; }
-            set { name = value; }
-        }
-    }
-
     public partial class MainWindow
     {
 
