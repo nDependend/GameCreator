@@ -37,5 +37,8 @@
     <System:String x:Key="Delete">Delete</System:String>
     <System:String x:Key="Edit">Edit</System:String>
     <System:String x:Key="DeleteAll">Delete All</System:String>
+    
+    <!-- Headers -->
+    <System:String x:Key="ProjectExplorer">Project-Explorer</System:String>
 
 </ResourceDictionary>

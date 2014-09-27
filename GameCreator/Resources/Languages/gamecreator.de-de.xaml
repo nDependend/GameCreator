@@ -38,4 +38,7 @@
     <System:String x:Key="Edit">Bearbeiten</System:String>
     <System:String x:Key="DeleteAll">Alle entfernen</System:String>
 
+    <!-- Headers -->
+    <System:String x:Key="ProjectExplorer">Project-Explorer</System:String>
+    
 </ResourceDictionary>
