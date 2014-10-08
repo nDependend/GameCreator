@@ -10,7 +10,7 @@ using System.IO;
 namespace GameCreator
 {
     [Serializable]
-    public class GC_Class : PropertyChangedBase
+    public class GC_Class : PropertyChangedBase, GC_Item
     {
         #region "Properties"
         private string _Name;

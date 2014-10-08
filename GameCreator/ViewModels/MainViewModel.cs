@@ -48,6 +48,34 @@ namespace GameCreator
             }
         }
 
+        #region Tabs
+        ObservableCollection<ViewModels.PaneViewModel> openedItems = new ObservableCollection<ViewModels.PaneViewModel>();
+        public ObservableCollection<ViewModels.PaneViewModel> OpenedItems
+        {
+            get
+            {
+                return openedItems;
+            }
+            set
+            {
+                SetProperty(value, ref openedItems);
+            }
+        }
+
+        ViewModels.PaneViewModel activeItem = new ViewModels.PaneViewModel();
+        public ViewModels.PaneViewModel ActiveItem
+        {
+            get
+            {
+                return activeItem;
+            }
+            set
+            {
+                SetProperty(value, ref activeItem);
+            }
+        }
+        #endregion
+
         #endregion
     }
 }

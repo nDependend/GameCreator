@@ -11,7 +11,7 @@ using System.Drawing;
 namespace GameCreator
 {
     [Serializable]
-    public class GC_Image : PropertyChangedBase, IDisposable
+    public class GC_Image : PropertyChangedBase, IDisposable, GC_Item
     {
         #region "Properties"
         private string _Name;

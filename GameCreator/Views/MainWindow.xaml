@@ -5,12 +5,14 @@
                       xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
                       xmlns:Converter="clr-namespace:GameCreator.Extensions.Converter"
                       xmlns:avalonDock="http://schemas.xceed.com/wpf/xaml/avalondock"
+                      xmlns:pane="clr-namespace:GameCreator.Views.Pane"
                       Height="600"
                       Width="800"
                       GlowBrush="{DynamicResource AccentColorBrush}"
                       DataContext="{x:Static local:MainViewModel.Instance}">
     <Window.Resources>
         <Converter:NullObjectToBooleanConverter x:Key="NullObjectToBooleanConverter" />
+        <Converter:ActiveItemConverter x:Key="ActiveItemConverter" />
     </Window.Resources>
     <Window.Style>
         <Style TargetType="Window">
@@ -57,9 +59,15 @@
                     <Button>
                         <Rectangle Width="25" Height="25" Stretch="Fill" Fill="Red"/>
                     </Button>
+                    <Separator/>
+                    <Button Command="{Binding ElementName=window, Path=AssignChanges}" CommandParameter="{Binding ActiveItem}">
+                        <Rectangle Width="15" Height="15" Stretch="Fill" Fill="Blue"/>
+                    </Button>
                 </ToolBar>
             </StackPanel>
-            <avalonDock:DockingManager x:Name="dockingManager" Margin="5">
+            <avalonDock:DockingManager x:Name="dockingManager" Margin="5"
+                                       DocumentsSource="{Binding OpenedItems, Mode=TwoWay}"
+                                       ActiveContent="{Binding ActiveItem, Mode=TwoWay, Converter={StaticResource ActiveItemConverter}}">
                 <avalonDock:LayoutRoot>
                     <avalonDock:LayoutPanel Orientation="Horizontal">
                         <avalonDock:LayoutAnchorablePaneGroup DockWidth="150">
@@ -173,9 +181,83 @@
                                 </avalonDock:LayoutAnchorable>
                             </avalonDock:LayoutAnchorablePane>
                         </avalonDock:LayoutAnchorablePaneGroup>
-                        <avalonDock:LayoutDocumentPane/>
+                        <avalonDock:LayoutDocumentPaneGroup>
+                            <avalonDock:LayoutDocumentPane></avalonDock:LayoutDocumentPane>
+                        </avalonDock:LayoutDocumentPaneGroup>
                     </avalonDock:LayoutPanel>
                 </avalonDock:LayoutRoot>
+                <avalonDock:DockingManager.LayoutItemTemplateSelector>
+                    <pane:PanesTemplateSelector>
+                        <pane:PanesTemplateSelector.ClassPaneTemplate>
+                            <DataTemplate>
+                                <DockPanel>
+                                    <TextBlock Text="Name: " DockPanel.Dock="Left" Height="23" VerticalAlignment="Top" Margin="2,2,6,2"/>
+                                    <TextBox Text="{Binding Title, Mode=TwoWay}" DockPanel.Dock="Left" Height="23" VerticalAlignment="Top"/>
+                                </DockPanel>
+                            </DataTemplate>
+                        </pane:PanesTemplateSelector.ClassPaneTemplate>
+                        <pane:PanesTemplateSelector.ImagePaneTemplate>
+                            <DataTemplate>
+                                <DockPanel>
+                                    <TextBlock Text="Name: " DockPanel.Dock="Left" Height="23" VerticalAlignment="Top" Margin="2,2,6,2"/>
+                                    <TextBox Text="{Binding Title, Mode=TwoWay}" DockPanel.Dock="Left" Height="23" VerticalAlignment="Top"/>
+                                </DockPanel>
+                            </DataTemplate>
+                        </pane:PanesTemplateSelector.ImagePaneTemplate>
+                        <pane:PanesTemplateSelector.ObjectPaneTemplate>
+                            <DataTemplate>
+                                <DockPanel>
+                                    <TextBlock Text="Name: " DockPanel.Dock="Left" Height="23" VerticalAlignment="Top" Margin="2,2,6,2"/>
+                                    <TextBox Text="{Binding Title, Mode=TwoWay}" DockPanel.Dock="Left" Height="23" VerticalAlignment="Top"/>
+                                </DockPanel>
+                            </DataTemplate>
+                        </pane:PanesTemplateSelector.ObjectPaneTemplate>
+                        <pane:PanesTemplateSelector.LevelPaneTemplate>
+                            <DataTemplate>
+                                <DockPanel>
+                                    <TextBlock Text="Name: " DockPanel.Dock="Left" Height="23" VerticalAlignment="Top" Margin="2,2,6,2"/>
+                                    <TextBox Text="{Binding Title, Mode=TwoWay}" DockPanel.Dock="Left" Height="23" VerticalAlignment="Top"/>
+                                </DockPanel>
+                            </DataTemplate>
+                        </pane:PanesTemplateSelector.LevelPaneTemplate>
+                    </pane:PanesTemplateSelector>
+                </avalonDock:DockingManager.LayoutItemTemplateSelector>
+                <avalonDock:DockingManager.LayoutItemContainerStyleSelector>
+                    <pane:PanesStyleSelector>
+                        <pane:PanesStyleSelector.ClassPaneStyle>
+                            <Style TargetType="{x:Type avalonDock:LayoutItem}">
+                                <Setter Property="CloseCommand" Value="{Binding Model.CloseCommand}"/>
+                                <Setter Property="Title" Value="{Binding Model.Title}"/>
+                                <Setter Property="IsSelected" Value="{Binding Model.IsSelected, Mode=TwoWay}"/>
+                                <Setter Property="IsActive" Value="{Binding Model.IsActive, Mode=TwoWay}"/>
+                            </Style>
+                        </pane:PanesStyleSelector.ClassPaneStyle>
+                        <pane:PanesStyleSelector.ImagePaneStyle>
+                            <Style TargetType="{x:Type avalonDock:LayoutItem}">
+                                <Setter Property="CloseCommand" Value="{Binding Model.CloseCommand}"/>
+                                <Setter Property="Title" Value="{Binding Model.Title}"/>
+                                <Setter Property="IsSelected" Value="{Binding Model.IsSelected, Mode=TwoWay}"/>
+                                <Setter Property="IsActive" Value="{Binding Model.IsActive, Mode=TwoWay}"/>
+                            </Style>
+                        </pane:PanesStyleSelector.ImagePaneStyle>
+                        <pane:PanesStyleSelector.ObjectPaneStyle>
+                            <Style TargetType="{x:Type avalonDock:LayoutItem}">
+                                <Setter Property="CloseCommand" Value="{Binding Model.CloseCommand}"/>
+                                <Setter Property="Title" Value="{Binding Model.Title}"/>
+                                <Setter Property="IsSelected" Value="{Binding Model.IsSelected, Mode=TwoWay}"/>
+                                <Setter Property="IsActive" Value="{Binding Model.IsActive, Mode=TwoWay}"/>
+                            </Style>
+                        </pane:PanesStyleSelector.ObjectPaneStyle>
+                        <pane:PanesStyleSelector.LevelPaneStyle>
+                            <Style TargetType="{x:Type avalonDock:LayoutItem}">
+                                <Setter Property="CloseCommand" Value="{Binding Model.CloseCommand}"/>
+                                <Setter Property="Title" Value="{Binding Model.Title}"/>
+                                <Setter Property="IsSelected" Value="{Binding Model.IsSelected, Mode=TwoWay}"/>
+                                <Setter Property="IsActive" Value="{Binding Model.IsActive, Mode=TwoWay}"/>
+                            </Style>
+                        </pane:PanesStyleSelector.LevelPaneStyle>
+                    </pane:PanesStyleSelector>
+                </avalonDock:DockingManager.LayoutItemContainerStyleSelector>
             </avalonDock:DockingManager>
         </DockPanel>
     </Grid>

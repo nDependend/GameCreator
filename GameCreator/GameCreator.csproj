@@ -87,10 +87,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Extensions\Converter\ActiveItemConverter.cs" />
     <Compile Include="Extensions\Converter\NullObjectToBooleanConverter.cs" />
     <Compile Include="Models\Class.cs" />
     <Compile Include="Models\Event.cs" />
     <Compile Include="Models\Game.cs" />
+    <Compile Include="Models\GC_Item.cs" />
     <Compile Include="Models\Image.cs" />
     <Compile Include="Models\Information.cs" />
     <Compile Include="Models\Level.cs" />
@@ -98,6 +100,13 @@
     <Compile Include="Models\Object.cs" />
     <Compile Include="ViewModelBase\PropertyChangedBase.cs" />
     <Compile Include="ViewModelBase\RelayCommand.cs" />
+    <Compile Include="ViewModels\LevelPaneViewModel.cs" />
+    <Compile Include="ViewModels\ImagePaneViewModel.cs" />
+    <Compile Include="ViewModels\ClassPaneViewModel.cs" />
+    <Compile Include="ViewModels\ObjectPaneViewModel.cs" />
+    <Compile Include="ViewModels\PaneViewModel.cs" />
+    <Compile Include="Views\Pane\PanesStyleSelector.cs" />
+    <Compile Include="Views\Pane\PanesTemplateSelector.cs" />
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

@@ -7,7 +7,7 @@ using System.Collections.ObjectModel;
 
 namespace GameCreator.Models
 {
-    class GC_Method : PropertyChangedBase
+    class GC_Method : PropertyChangedBase, GC_Item
     {
         #region Properties
         private ObservableCollection<GC_Information> _InputInformations;

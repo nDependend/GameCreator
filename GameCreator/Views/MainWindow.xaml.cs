@@ -157,10 +157,25 @@ namespace GameCreator
                 {
                     _EditItem = new RelayCommand((object item) =>
                     {
-                        if (item == null)
+                        if (item as GC_Item == null)
                             return;
-                        
-                        
+                        ViewModels.PaneViewModel model = null;
+                        if (item.GetType() == typeof(GC_Class))
+                            model = new ViewModels.ClassPaneViewModel(item as GC_Class);
+                        else if (item.GetType() == typeof(GC_Image))
+                            model = new ViewModels.ImagePaneViewModel(item as GC_Image);
+                        else if (item.GetType() == typeof(GC_Level))
+                            model = new ViewModels.LevelPaneViewModel(item as GC_Level);
+                        else if (item.GetType() == typeof(GC_Object))
+                            model = new ViewModels.ObjectPaneViewModel(item as GC_Object);
+                        if(model != null)
+                        {
+                            if(!MainViewModel.Instance.OpenedItems.Select(x => x.Item).Contains(model.Item))
+                            {
+                                MainViewModel.Instance.OpenedItems.Add(model);
+                            }
+                            MainViewModel.Instance.ActiveItem = model;
+                        }
                     });
                 }
                 return _EditItem;
@@ -284,6 +299,25 @@ namespace GameCreator
                     });
                 }
                 return _PasteItem;
+            }
+        }
+
+        private RelayCommand _AssignChanges;
+        public RelayCommand AssignChanges
+        {
+            get
+            {
+                if(_AssignChanges == null)
+                {
+                    _AssignChanges = new RelayCommand((object item) =>
+                    {
+                        if(item as ViewModels.PaneViewModel != null)
+                        {
+                            (item as ViewModels.PaneViewModel).AssignChanges();
+                        }
+                    });
+                }
+                return _AssignChanges;
             }
         }
     }
