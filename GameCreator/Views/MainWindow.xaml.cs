@@ -82,6 +82,7 @@ namespace GameCreator
                                     if (MainViewModel.Instance.CurrentGame == null)
                                         MainViewModel.Instance.CurrentGame = new Game(null);
                                     MainViewModel.Instance.CurrentGame.Load(dialog.FileName);
+                                    MainViewModel.Instance.CurrentGamePath = dialog.FileName;
                                 }
                                 break;
                         }
@@ -96,9 +97,30 @@ namespace GameCreator
         {
             get
             {
-                if(_SaveGame == null)
+                if (_SaveGame == null)
                 {
                     _SaveGame = new RelayCommand((parameter) =>
+                    {
+                        if (MainViewModel.Instance.CurrentGamePath != null)
+                        {
+                            MainViewModel.Instance.CurrentGame.Save(MainViewModel.Instance.CurrentGamePath);
+                        }
+                        else
+                            SaveGameAs.Execute(parameter);
+                    });
+                }
+                return _SaveGame;
+            }
+        }
+
+        private RelayCommand _SaveGameAs;
+        public RelayCommand SaveGameAs
+        {
+            get
+            {
+                if(_SaveGameAs == null)
+                {
+                    _SaveGameAs = new RelayCommand((parameter) =>
                     {
                         Microsoft.Win32.SaveFileDialog dialog = new Microsoft.Win32.SaveFileDialog();
                         dialog.DefaultExt = ".gcg";
@@ -109,10 +131,11 @@ namespace GameCreator
                         if (b.HasValue && b.Value)
                         {
                             MainViewModel.Instance.CurrentGame.Save(dialog.FileName);
+                            MainViewModel.Instance.CurrentGamePath = dialog.FileName;
                         }
                     });
                 }
-                return _SaveGame;
+                return _SaveGameAs;
             }
         }
 

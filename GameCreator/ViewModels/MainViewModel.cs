@@ -48,6 +48,18 @@ namespace GameCreator
             }
         }
 
+        private string _CurrentGamePath;
+        public string CurrentGamePath
+        {
+            get
+            {
+                return _CurrentGamePath;
+            }
+            set
+            {
+                SetProperty(value, ref _CurrentGamePath);
+            }
+        }
         #region Tabs
         ObservableCollection<ViewModels.PaneViewModel> openedItems = new ObservableCollection<ViewModels.PaneViewModel>();
         public ObservableCollection<ViewModels.PaneViewModel> OpenedItems

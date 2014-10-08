@@ -15,6 +15,7 @@
     <System:String x:Key="New">Neu</System:String>
     <System:String x:Key="Open">Öffnen</System:String>
     <System:String x:Key="Save">Speichern</System:String>
+    <System:String x:Key="SaveAs">Speichern unter</System:String>
     <System:String x:Key="Close">Beenden</System:String>
     <System:String x:Key="Add">Hinzufügen</System:String>
     <System:String x:Key="View">Ansicht</System:String>
