@@ -22,6 +22,13 @@ namespace GameCreator
         }
 
         private Game _Game;
+        public Game Game
+        {
+            get
+            {
+                return _Game;
+            }
+        }
         #endregion
 
         public GC_Class(string Name, Game game)

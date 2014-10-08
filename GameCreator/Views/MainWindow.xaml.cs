@@ -28,15 +28,23 @@ namespace GameCreator
                         switch (parameter.ToString())
                         {
                             case "Class":
+                                while (MainViewModel.Instance.CurrentGame.Classes.Select(x => x.Name).Contains(name))
+                                    name += " - " + Application.Current.FindResource("New").ToString();                                
                                 MainViewModel.Instance.CurrentGame.Classes.Add(new GC_Class(name, MainViewModel.Instance.CurrentGame));
                                 break;
                             case "Image":
+                                while (MainViewModel.Instance.CurrentGame.Images.Select(x => x.Name).Contains(name))
+                                    name += " - " + Application.Current.FindResource("New").ToString();                                  
                                 MainViewModel.Instance.CurrentGame.Images.Add(new GC_Image(name, MainViewModel.Instance.CurrentGame));
                                 break;
                             case "Object":
+                                while (MainViewModel.Instance.CurrentGame.Objects.Select(x => x.Name).Contains(name))
+                                    name += " - " + Application.Current.FindResource("New").ToString();  
                                 MainViewModel.Instance.CurrentGame.Objects.Add(new GC_Object(name, MainViewModel.Instance.CurrentGame));
                                 break;
                             case "Level":
+                                while (MainViewModel.Instance.CurrentGame.Levels.Select(x => x.Name).Contains(name))
+                                    name += " - " + Application.Current.FindResource("New").ToString();  
                                 MainViewModel.Instance.CurrentGame.Levels.Add(new GC_Level(name, MainViewModel.Instance.CurrentGame));
                                 break;
                         }
