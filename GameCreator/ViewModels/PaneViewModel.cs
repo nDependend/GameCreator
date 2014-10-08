@@ -8,8 +8,8 @@ namespace GameCreator.ViewModels
 {
     public class PaneViewModel : PropertyChangedBase
     {
-        private GC_Item item;
-        public GC_Item Item
+        private IGC_Item item;
+        public IGC_Item Item
         {
             get
             {

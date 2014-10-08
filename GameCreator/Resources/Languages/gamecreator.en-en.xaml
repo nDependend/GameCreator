@@ -40,5 +40,8 @@
     
     <!-- Headers -->
     <System:String x:Key="ProjectExplorer">Project-Explorer</System:String>
+    
+    <!-- Save/Load -->
+    <System:String x:Key="FileCorrupt">The file is corrupt.</System:String>
 
 </ResourceDictionary>

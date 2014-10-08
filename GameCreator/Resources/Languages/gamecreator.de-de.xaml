@@ -41,4 +41,6 @@
     <!-- Headers -->
     <System:String x:Key="ProjectExplorer">Project-Explorer</System:String>
     
+    <!--Load/Save -->
+    <System:String x:Key="FileCorrupt">Die Datei ist nicht vom benötigten Typ oder ist beschädigt.</System:String>
 </ResourceDictionary>

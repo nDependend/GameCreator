@@ -28,16 +28,16 @@ namespace GameCreator
                         switch (parameter.ToString())
                         {
                             case "Class":
-                                MainViewModel.Instance.CurrentGame.Classes.Add(new GC_Class(name));
+                                MainViewModel.Instance.CurrentGame.Classes.Add(new GC_Class(name, MainViewModel.Instance.CurrentGame));
                                 break;
                             case "Image":
-                                MainViewModel.Instance.CurrentGame.Images.Add(new GC_Image(name));
+                                MainViewModel.Instance.CurrentGame.Images.Add(new GC_Image(name, MainViewModel.Instance.CurrentGame));
                                 break;
                             case "Object":
-                                MainViewModel.Instance.CurrentGame.Objects.Add(new GC_Object(name));
+                                MainViewModel.Instance.CurrentGame.Objects.Add(new GC_Object(name, MainViewModel.Instance.CurrentGame));
                                 break;
                             case "Level":
-                                MainViewModel.Instance.CurrentGame.Levels.Add(new GC_Level(name));
+                                MainViewModel.Instance.CurrentGame.Levels.Add(new GC_Level(name, MainViewModel.Instance.CurrentGame));
                                 break;
                         }
                     });
@@ -60,12 +60,51 @@ namespace GameCreator
                             case "New":
                                 string name = await this.ShowInputAsync(Application.Current.FindResource("NewGame").ToString(), Application.Current.FindResource("Name".ToString()) + ":");
                                 if(name != null)
-                                    MainViewModel.Instance.CurrentGame = new Models.Game(name);
+                                    MainViewModel.Instance.CurrentGame = new Game(name);
+                                break;
+                            case "Load":
+                                Microsoft.Win32.OpenFileDialog dialog = new Microsoft.Win32.OpenFileDialog();
+                                dialog.DefaultExt = ".gcg";
+                                dialog.AddExtension = true;
+                                dialog.CheckFileExists = true;
+                                dialog.Filter = "GameCreator Game|*.gcg";
+                                bool? b = dialog.ShowDialog();
+                                if(b.HasValue && b.Value)
+                                {
+                                    if (MainViewModel.Instance.CurrentGame == null)
+                                        MainViewModel.Instance.CurrentGame = new Game(null);
+                                    MainViewModel.Instance.CurrentGame.Load(dialog.FileName);
+                                }
                                 break;
                         }
                     });
                 }
                 return _LoadGame;
+            }
+        }
+
+        private RelayCommand _SaveGame;
+        public RelayCommand SaveGame
+        {
+            get
+            {
+                if(_SaveGame == null)
+                {
+                    _SaveGame = new RelayCommand((parameter) =>
+                    {
+                        Microsoft.Win32.SaveFileDialog dialog = new Microsoft.Win32.SaveFileDialog();
+                        dialog.DefaultExt = ".gcg";
+                        dialog.CheckPathExists = true;
+                        dialog.AddExtension = true;
+                        dialog.Filter = "GameCreator Game|*.gcg";
+                        bool? b = dialog.ShowDialog();
+                        if (b.HasValue && b.Value)
+                        {
+                            MainViewModel.Instance.CurrentGame.Save(dialog.FileName);
+                        }
+                    });
+                }
+                return _SaveGame;
             }
         }
 
@@ -157,7 +196,7 @@ namespace GameCreator
                 {
                     _EditItem = new RelayCommand((object item) =>
                     {
-                        if (item as GC_Item == null)
+                        if (item as IGC_Item == null)
                             return;
                         ViewModels.PaneViewModel model = null;
                         if (item.GetType() == typeof(GC_Class))

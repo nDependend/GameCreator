@@ -35,8 +35,8 @@ namespace GameCreator
         #endregion
 
         #region Properties
-        private Models.Game _CurrentGame;
-        public Models.Game CurrentGame
+        private Game _CurrentGame;
+        public Game CurrentGame
         {
             get
             {

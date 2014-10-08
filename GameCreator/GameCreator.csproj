@@ -92,7 +92,7 @@
     <Compile Include="Models\Class.cs" />
     <Compile Include="Models\Event.cs" />
     <Compile Include="Models\Game.cs" />
-    <Compile Include="Models\GC_Item.cs" />
+    <Compile Include="Models\IGC_Item.cs" />
     <Compile Include="Models\Image.cs" />
     <Compile Include="Models\Information.cs" />
     <Compile Include="Models\Level.cs" />
