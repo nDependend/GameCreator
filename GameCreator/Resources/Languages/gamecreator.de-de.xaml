@@ -30,6 +30,7 @@
     <System:String x:Key="Objects">Objekte</System:String>
     <System:String x:Key="Levels">Levels</System:String>
     <System:String x:Key="CopyOf">Kopie</System:String>
+    <System:String x:Key="Browse">Durchsuchen</System:String>
 
     <!-- ContextMenu -->
     <System:String x:Key="Copy">Kopieren</System:String>

@@ -123,9 +123,6 @@ namespace GameCreator
 
                 subdir = dir + "\\Images\\";
                 items = Directory.GetFiles(subdir);
-                //To not create a memory leak
-                foreach(GC_Image i in Images)
-                    i.Dispose();
                 Images.Clear();
                 GC_Image currentImage;
                 foreach(string i in items)

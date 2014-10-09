@@ -112,7 +112,7 @@
                                                 <DataTemplate>
                                                     <Border Background="Transparent" Tag="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
                                                         <DockPanel>
-                                                            <Image Source="{Binding Image}" DockPanel.Dock="Left" Width="{Binding Image.Size.Width}" Height="{Binding Image.Size.Height}"/>
+                                                            <Image Source="{Binding Image}" DockPanel.Dock="Left" Width="20" Height="20"/>
                                                             <TextBlock Text="{Binding Name}" Margin="0" Padding="0,3,0,3" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
                                                         </DockPanel>
                                                         <Border.ContextMenu>
@@ -222,26 +222,32 @@
                             <DataTemplate>
                                 <DockPanel>
                                     <Border DockPanel.Dock="Right" Width="200" BorderBrush="Gray" Padding="3" BorderThickness="1">
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto"/>
-                                                <ColumnDefinition/>
-                                            </Grid.ColumnDefinitions>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="Auto"/>
-                                            </Grid.RowDefinitions>
+                                        <StackPanel>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition/>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
 
-                                            <TextBlock Grid.Row="0" Grid.Column="0" Height="23" VerticalAlignment="Top" Margin="2,2,6,2">
-                                                <Run Text="{DynamicResource Name}"/>
-                                                <Run Text=":"/>
-                                            </TextBlock>
-                                            <TextBox Text="{Binding Title, Mode=TwoWay}" Grid.Row="0" Grid.Column="1" Height="23" VerticalAlignment="Top"/>
+                                                <TextBlock Grid.Row="0" Grid.Column="0" Height="23" VerticalAlignment="Top" Margin="2,2,6,2">
+                                                    <Run Text="{DynamicResource Name}"/>
+                                                    <Run Text=":"/>
+                                                </TextBlock>
+                                                <TextBox Text="{Binding Title, Mode=TwoWay}" Grid.Row="0" Grid.Column="1" Height="23" VerticalAlignment="Top"/>
 
-                                        </Grid>
+                                            </Grid>
+                                            <Button Command="{Binding ElementName=window, Path=BrowseImage}" CommandParameter="{Binding}">
+                                                <TextBlock Text="{DynamicResource Browse}"/>
+                                            </Button>
+                                        </StackPanel>
                                     </Border>
-                                    <Canvas>
-                                        <!-- Insert Image editor here -->
-                                    </Canvas>
+                                    <!-- Will later be replaced with an image editor -->
+                                    <DockPanel>
+                                        <Image Source="{Binding CoreImage}" Width="{Binding CoreImage.Width}" Height="{Binding CoreImage.Height}"/>
+                                    </DockPanel>
                                 </DockPanel>
                             </DataTemplate>
                         </pane:PanesTemplateSelector.ImagePaneTemplate>

@@ -9,11 +9,12 @@ using System.IO;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Windows;
+using System.Windows.Media.Imaging;
 
 namespace GameCreator
 {
     [Serializable]
-    public class GC_Image : PropertyChangedBase, IDisposable, IGC_Item
+    public class GC_Image : PropertyChangedBase, IGC_Item
     {
         #region "Properties"
         private string _Name;
@@ -23,8 +24,8 @@ namespace GameCreator
             set { SetProperty(value, ref _Name); }
         }
 
-        private Bitmap _Image;
-        public Bitmap Image
+        private BitmapImage _Image;
+        public BitmapImage Image
         {
             get { return _Image; }
             set { SetProperty(value, ref _Image);  }
@@ -55,12 +56,6 @@ namespace GameCreator
             return formatter.Deserialize(stream) as GC_Image;
         }
 
-        public void Dispose()
-        {
-            if(_Image != null)
-                _Image.Dispose();
-        }
-
         public void Save(string filename)
         {
             StreamWriter writer = new StreamWriter(filename);
@@ -70,7 +65,17 @@ namespace GameCreator
                 if (Image == null)
                     writer.WriteLine("PropertyNotSet");
                 else
-                    Image.Save(writer.BaseStream, ImageFormat.Bmp);
+                {
+                    string dir = filename.Substring(0,filename.Length - ".gci".Length - this.Name.Length - "Images\\".Length) + "\\Assets\\";
+                    //dir now is the directory of the assets location
+                    if (!Directory.Exists(dir))
+                        Directory.CreateDirectory(dir);
+                    string newpath = dir + this.Name + Image.UriSource.AbsolutePath.Substring(Image.UriSource.AbsolutePath.Length - 4);
+                    File.Copy(Image.UriSource.AbsolutePath, newpath);
+                    Image.UriSource = new Uri(newpath);
+                    writer.WriteLine(Image.UriSource.AbsolutePath);
+                }
+                    
                 writer.Flush();
             }
             finally
@@ -85,12 +90,10 @@ namespace GameCreator
             try
             {
                 this.Name = reader.ReadLine();
-                long streampos = reader.BaseStream.Position;
                 string s = reader.ReadLine();
                 if (s != "PropertyNotSet")
                 {
-                    reader.BaseStream.Seek(streampos, SeekOrigin.Begin);
-                    this.Image = new Bitmap(reader.BaseStream);
+                    this.Image = new BitmapImage(new Uri(s));
                 }
                 reader.Close();
             }

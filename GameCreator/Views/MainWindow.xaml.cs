@@ -8,6 +8,7 @@ using MahApps.Metro.Controls.Dialogs;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Linq;
+using System.Windows.Media.Imaging;
 
 namespace GameCreator
 {
@@ -398,6 +399,33 @@ namespace GameCreator
                     });
                 }
                 return _AssignChanges;
+            }
+        }
+
+        private RelayCommand _BrowseImage;
+        public RelayCommand BrowseImage
+        {
+            get
+            {
+                if(_BrowseImage == null)
+                {
+                    _BrowseImage = new RelayCommand((parameter) =>
+                    {
+                        Microsoft.Win32.OpenFileDialog dialog = new Microsoft.Win32.OpenFileDialog();
+                        dialog.DefaultExt = ".png";
+                        dialog.AddExtension = true;
+                        dialog.CheckFileExists = true;
+                        //----------Later a support for jpg and other image formats will be added-------------//
+                        dialog.Filter = "Image Files|*.png;*.bmp";
+                        bool? b = dialog.ShowDialog();
+                        if (b.HasValue && b.Value)
+                        {
+                            ViewModels.ImagePaneViewModel img = parameter as ViewModels.ImagePaneViewModel;
+                            img.CoreImage = new BitmapImage(new Uri(dialog.FileName));
+                        }
+                    });
+                }
+                return _BrowseImage;
             }
         }
     }
