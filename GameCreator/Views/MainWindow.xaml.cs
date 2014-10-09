@@ -67,8 +67,14 @@ namespace GameCreator
                         {
                             case "New":
                                 string name = await this.ShowInputAsync(Application.Current.FindResource("NewGame").ToString(), Application.Current.FindResource("Name".ToString()) + ":");
-                                if(name != null)
+                                if (name != null)
+                                {
+                                    //---------------Close tabs-------------------------//
+                                    MainViewModel.Instance.OpenedItems.Clear();
+                                    MainViewModel.Instance.ActiveItem = null;
+
                                     MainViewModel.Instance.CurrentGame = new Game(name);
+                                }
                                 break;
                             case "Load":
                                 Microsoft.Win32.OpenFileDialog dialog = new Microsoft.Win32.OpenFileDialog();
@@ -81,6 +87,10 @@ namespace GameCreator
                                 {
                                     if (MainViewModel.Instance.CurrentGame == null)
                                         MainViewModel.Instance.CurrentGame = new Game(null);
+                                    //---------------Close tabs-------------------------//
+                                    MainViewModel.Instance.OpenedItems.Clear();
+                                    MainViewModel.Instance.ActiveItem = null;
+
                                     MainViewModel.Instance.CurrentGame.Load(dialog.FileName);
                                     MainViewModel.Instance.CurrentGamePath = dialog.FileName;
                                 }

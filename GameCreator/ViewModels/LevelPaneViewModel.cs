@@ -19,7 +19,8 @@ namespace GameCreator.ViewModels
 
         public override void AssignChanges()
         {
-            if ((Item as GC_Level).Game.Levels.Where(x => x.Name == this.Title).Count() > 0)
+            IEnumerable<GC_Level> coll = (Item as GC_Level).Game.Levels.Where(x => x.Name == this.Title);
+            if (coll.Count() > 0 && coll.FirstOrDefault() != this.Item)
                 this.Title = this.Title + " - " + Application.Current.FindResource("New").ToString();
             (Item as GC_Level).Name = this.Title;
         }
