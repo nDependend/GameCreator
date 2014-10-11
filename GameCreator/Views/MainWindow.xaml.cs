@@ -9,11 +9,40 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Linq;
 using System.Windows.Media.Imaging;
+using System.ComponentModel;
 
 namespace GameCreator
 {
     public partial class MainWindow
     {
+        #region Constructor
+
+        public MainWindow() 
+        {
+            this.Closing += MainWindow_Closing;
+        }
+
+        #endregion
+
+        private async void MainWindow_Closing(object sender,CancelEventArgs e)
+        {
+            if (MainViewModel.Instance.Dirty)
+            {
+                e.Cancel = true;
+                MessageDialogResult result = await this.ShowMessageAsync((string)Application.Current.FindResource("Attention"), (string)Application.Current.FindResource("UnsavedChanges"), MessageDialogStyle.AffirmativeAndNegativeAndSingleAuxiliary, new MetroDialogSettings() { AffirmativeButtonText = (string)Application.Current.FindResource("Yes"), NegativeButtonText = (string)Application.Current.FindResource("No"), FirstAuxiliaryButtonText = (string)Application.Current.FindResource("Cancel") });
+                if (result == MessageDialogResult.Affirmative)
+                {
+                    _SaveGame.Execute(null);
+                    if(MainViewModel.Instance.Dirty = false)
+                        Application.Current.Shutdown();    
+                } else if (result == MessageDialogResult.Negative)
+                {
+                    Application.Current.Shutdown();
+                }
+            }
+        }
+
+        #region Commands
 
         private RelayCommand _AddItem;
         public RelayCommand AddItem
@@ -83,7 +112,7 @@ namespace GameCreator
                                 dialog.DefaultExt = ".gcg";
                                 dialog.AddExtension = true;
                                 dialog.CheckFileExists = true;
-                                dialog.Filter = "GameCreator Game|*.gcg";
+                                dialog.Filter = "GameCreator " + (string)Application.Current.FindResource("Game") + "|*.gcg";
                                 bool? b = dialog.ShowDialog();
                                 if(b.HasValue && b.Value)
                                 {
@@ -98,7 +127,9 @@ namespace GameCreator
                                 }
                                 break;
                         }
-                        MainViewModel.Instance.Dirty = false;
+                        //We havn't saved the game yet
+                        //TODO: Change this, if we add a save dialog on new/load game
+                        MainViewModel.Instance.Dirty = true;
                     });
                 }
                 return _LoadGame;
@@ -120,7 +151,6 @@ namespace GameCreator
                         }
                         else
                             SaveGameAs.Execute(parameter);
-                        MainViewModel.Instance.Dirty = false;
                     });
                 }
                 return _SaveGame;
@@ -140,14 +170,13 @@ namespace GameCreator
                         dialog.DefaultExt = ".gcg";
                         dialog.CheckPathExists = true;
                         dialog.AddExtension = true;
-                        dialog.Filter = "GameCreator Game|*.gcg";
+                        dialog.Filter = "GameCreator " + (string)Application.Current.FindResource("Game") + "|*.gcg";
                         bool? b = dialog.ShowDialog();
                         if (b.HasValue && b.Value)
                         {
                             MainViewModel.Instance.CurrentGame.Save(dialog.FileName);
                             MainViewModel.Instance.CurrentGamePath = dialog.FileName;
                         }
-                        MainViewModel.Instance.Dirty = false;
                     });
                 }
                 return _SaveGameAs;
@@ -163,15 +192,6 @@ namespace GameCreator
                 {
                     _CloseApplication = new RelayCommand((object parameter) =>
                     {
-                        if(MainViewModel.Instance.Dirty)
-                        {
-                            MessageBoxResult res = System.Windows.MessageBox.Show((string)Application.Current.FindResource("UnsavedChanges"), "", 
-                                MessageBoxButton.YesNoCancel, MessageBoxImage.Warning);
-                            if (res == MessageBoxResult.Yes)
-                                _SaveGame.Execute(parameter);
-                            else if (res == MessageBoxResult.Cancel)
-                                return;
-                        }
                         this.Close();
                     });
                 }
@@ -447,5 +467,6 @@ namespace GameCreator
             }
         }
 
+        #endregion
     }
 }

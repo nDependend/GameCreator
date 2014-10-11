@@ -1,6 +1,14 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:System="clr-namespace:System;assembly=mscorlib">
 
+    <!-- General -->
+    <System:String x:Key="Yes">Yes</System:String>
+    <System:String x:Key="No">No</System:String>
+    <System:String x:Key="OK">Ok</System:String>
+    <System:String x:Key="Apply">Apply</System:String>
+    <System:String x:Key="Cancel">Cancel</System:String>
+    <System:String x:Key="Browse">Browse</System:String>
+    
     <!-- MenuItems -->
     <System:String x:Key="NewClass">New Class</System:String>
     <System:String x:Key="NewImage">New Image</System:String>
@@ -23,14 +31,17 @@
     <System:String x:Key="Help">Help</System:String>
     <System:String x:Key="Info">About</System:String>
 
-    <!-- General -->
+    <!-- Warnings -->
+    <System:String x:Key="Warning">Warnung</System:String>
+    <System:String x:Key="Attention">Attention</System:String>
+    
+    <!-- Items -->
     <System:String x:Key="Name">Name</System:String>
     <System:String x:Key="Classes">Classes</System:String>
     <System:String x:Key="Images">Images</System:String>
     <System:String x:Key="Objects">Objects</System:String>
     <System:String x:Key="Levels">Levels</System:String>
     <System:String x:Key="CopyOf">Copy</System:String>
-    <System:String x:Key="Browse">Browse</System:String>
 
     <!-- ContextMenu -->
     <System:String x:Key="Copy">Copy</System:String>

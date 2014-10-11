@@ -37,8 +37,8 @@
                     <MenuItem Header="{DynamicResource Game}" >
                         <MenuItem Header="{DynamicResource New}" Command="{Binding ElementName=window,Path=LoadGame}" CommandParameter="New" />
                         <MenuItem Header="{DynamicResource Open}" Command="{Binding ElementName=window,Path=LoadGame}" CommandParameter="Load"/>
-                        <MenuItem Header="{DynamicResource Save}" Command="{Binding ElementName=window,Path=SaveGame}"/>
-                        <MenuItem Header="{DynamicResource SaveAs}" Command="{Binding ElementName=window,Path=SaveGameAs}"/>
+                        <MenuItem Header="{DynamicResource Save}" Command="{Binding ElementName=window,Path=SaveGame}" IsEnabled="{Binding CurrentGame, Converter={StaticResource NullObjectToBooleanConverter}}"/>
+                        <MenuItem Header="{DynamicResource SaveAs}" Command="{Binding ElementName=window,Path=SaveGameAs}" IsEnabled="{Binding CurrentGame, Converter={StaticResource NullObjectToBooleanConverter}}"/>
                         <MenuItem Header="{DynamicResource Close}" Command="{Binding ElementName=window,Path=CloseApplication}"/>
                     </MenuItem>
                     <MenuItem Header="{DynamicResource Add}" >

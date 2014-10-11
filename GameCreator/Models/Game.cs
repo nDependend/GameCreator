@@ -94,6 +94,7 @@ namespace GameCreator
             finally
             {
                 writer.Close();
+                MainViewModel.Instance.Dirty = false;
             }
         }
 
