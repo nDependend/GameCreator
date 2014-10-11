@@ -428,5 +428,6 @@ namespace GameCreator
                 return _BrowseImage;
             }
         }
+
     }
 }

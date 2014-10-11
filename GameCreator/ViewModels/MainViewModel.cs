@@ -14,6 +14,7 @@ namespace GameCreator
         public const string IMAGE_DATA_FORMAT = "Ndep_GC_Image";
         public const string OBJECT_DATA_FORMAT = "Ndep_GC_Object";
         public const string LEVEL_DATA_FORMAT = "Ndep_GC_Level";
+        public const string PROPERTYNOTSET = "PropertyNotSet";
         #endregion
 
         #region Singleton & Constructor

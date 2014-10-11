@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using System.Windows;
+using System.Linq;
 
 namespace GameCreator
 {
@@ -19,6 +20,58 @@ namespace GameCreator
         {
             get { return _Name; }
             set { SetProperty(value, ref _Name); }
+        }
+
+        private GC_Image _BackgroundImage;
+        public GC_Image BackgroundImage
+        {
+            get
+            {
+                return _BackgroundImage;
+            }
+            set
+            {
+                SetProperty(value, ref _BackgroundImage);
+            }
+        }
+
+        private string _BackgroundImageLayout;
+        public string BackgroundImageLayout
+        {
+            get
+            {
+                return _BackgroundImageLayout;
+            }
+            set
+            {
+                SetProperty(value, ref _BackgroundImageLayout);
+            }
+        }
+
+        private int _Width;
+        public int Width
+        {
+            get
+            {
+                return _Width;
+            }
+            set
+            {
+                SetProperty(value, ref _Width);
+            }
+        }
+
+        private int _Height;
+        public int Height
+        {
+            get
+            {
+                return _Height;
+            }
+            set
+            {
+                SetProperty(value, ref _Height);
+            }
         }
 
         private Game _Game;
@@ -35,6 +88,9 @@ namespace GameCreator
         {
             _Game = game;
             this.Name = Name;
+            this.Width = 500;
+            this.Height = 500;
+            this.BackgroundImageLayout = "None";
         }
 
         public GC_Level Clone()
@@ -52,6 +108,13 @@ namespace GameCreator
             try
             {
                 writer.WriteLine(this.Name);
+                writer.WriteLine(this.Width.ToString());
+                writer.WriteLine(this.Height.ToString());
+                if (this.BackgroundImage != null)
+                    writer.WriteLine(this.BackgroundImage.Name);
+                else
+                    writer.WriteLine(MainViewModel.PROPERTYNOTSET);
+                writer.WriteLine(this.BackgroundImageLayout);
                 writer.Flush();
             }
             finally
@@ -66,6 +129,14 @@ namespace GameCreator
             try
             {
                 this.Name = reader.ReadLine();
+                this.Width = Convert.ToInt32(reader.ReadLine());
+                this.Height = Convert.ToInt32(reader.ReadLine());
+                string s = reader.ReadLine();
+                if (s != MainViewModel.PROPERTYNOTSET)
+                {
+                    this.BackgroundImage = _Game.Images.Where(x => x.Name == s).First();
+                }
+                this.BackgroundImageLayout = reader.ReadLine();
                 reader.Close();
             }
             catch

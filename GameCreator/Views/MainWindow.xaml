@@ -6,6 +6,7 @@
                       xmlns:Converter="clr-namespace:GameCreator.Extensions.Converter"
                       xmlns:avalonDock="http://schemas.xceed.com/wpf/xaml/avalondock"
                       xmlns:pane="clr-namespace:GameCreator.Views.Pane"
+                      xmlns:usercontrols="clr-namespace:GameCreator.Extensions.Controls"
                       Height="600"
                       Width="800"
                       GlowBrush="{DynamicResource AccentColorBrush}"
@@ -13,6 +14,7 @@
     <Window.Resources>
         <Converter:NullObjectToBooleanConverter x:Key="NullObjectToBooleanConverter" />
         <Converter:ActiveItemConverter x:Key="ActiveItemConverter" />
+        <Converter:ImageToBrushConverter x:Key="ImageToBrushConverter" />
     </Window.Resources>
     <Window.Style>
         <Style TargetType="Window">
@@ -300,22 +302,55 @@
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="Auto"/>
                                                 <ColumnDefinition/>
+                                                <ColumnDefinition/>
                                             </Grid.ColumnDefinitions>
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>                                                
                                             </Grid.RowDefinitions>
 
                                             <TextBlock Grid.Row="0" Grid.Column="0" Height="23" VerticalAlignment="Top" Margin="2,6,3,6">
                                                 <Run Text="{DynamicResource Name}"/>
                                                 <Run Text=":"/>
                                             </TextBlock>
-                                            <TextBox Text="{Binding Title, Mode=TwoWay}" Grid.Row="0" Grid.Column="1" Height="23" VerticalAlignment="Top" Margin="3,6,2,6"/>
+                                            <TextBox Text="{Binding Title, Mode=TwoWay}" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Height="23" VerticalAlignment="Top" Margin="3,6,2,6"/>
                                         
+                                            <TextBlock Grid.Row="1" Grid.Column="0" Height="23" VerticalAlignment="Top" Margin="2,6,3,6">
+                                                <Run Text="{DynamicResource Size}"/>
+                                                <Run Text=":"/>
+                                            </TextBlock>
+                                            <TextBox Text="{Binding Width, Mode=TwoWay}" Grid.Row="1" Grid.Column="1" Height="23" VerticalAlignment="Top" Margin="3,6,3,6"/>
+                                            <TextBox Text="{Binding Height, Mode=TwoWay}" Grid.Row="1" Grid.Column="2" Height="23" VerticalAlignment="Top" Margin="3,6,2,6"/>
+                                            
+                                            <TextBlock Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Height="23" VerticalAlignment="Top" Margin="2,6,3,6">
+                                                <Run Text="{DynamicResource BackgroundImage}"/>
+                                                <Run Text=":"/>
+                                            </TextBlock>
+                                            <ComboBox Grid.Row="3" Grid.Column="1" ItemsSource="{Binding Item.Game.Images, Mode=OneWay}" DisplayMemberPath="Name"
+                                                        SelectedItem="{Binding BackgroundImage, Mode=TwoWay}" Margin="3,6,2,6" />
+
+                                            <TextBlock Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Height="23" VerticalAlignment="Top" Margin="2,6,3,6">
+                                                <Run Text="{DynamicResource BackgroundImageLayout}"/>
+                                                <Run Text=":"/>
+                                            </TextBlock>
+                                            <ComboBox Grid.Row="4" Grid.Column="1" ItemsSource="{Binding ImageLayout, Mode=OneWay}"
+                                                        SelectedItem="{Binding BackgroundImageLayout, Mode=TwoWay}" Margin="3,6,2,6" />
+
                                         </Grid>
                                     </Border>
-                                    <Canvas>
-                                        <!-- Insert Level editor here -->
-                                    </Canvas>
+                                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                                        <usercontrols:StageEditor Width="{Binding Width}" Height="{Binding Height}">
+                                            <usercontrols:StageEditor.BackgroundBrush>
+                                                <MultiBinding Converter="{StaticResource ImageToBrushConverter}">
+                                                    <Binding Path="BackgroundImage.Image"/>
+                                                    <Binding Path="BackgroundImageLayout"/>
+                                                </MultiBinding>
+                                            </usercontrols:StageEditor.BackgroundBrush>
+                                        </usercontrols:StageEditor>                                        
+                                    </ScrollViewer>
                                 </DockPanel>
                             </DataTemplate>
                         </pane:PanesTemplateSelector.LevelPaneTemplate>

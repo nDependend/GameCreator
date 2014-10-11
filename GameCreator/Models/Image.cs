@@ -63,7 +63,7 @@ namespace GameCreator
             {
                 writer.WriteLine(this.Name);
                 if (Image == null)
-                    writer.WriteLine("PropertyNotSet");
+                    writer.WriteLine(MainViewModel.PROPERTYNOTSET);
                 else
                 {
                     string dir = filename.Substring(0,filename.Length - ".gci".Length - this.Name.Length - "Images\\".Length) + "\\Assets\\";
@@ -71,6 +71,8 @@ namespace GameCreator
                     if (!Directory.Exists(dir))
                         Directory.CreateDirectory(dir);
                     string newpath = dir + this.Name + Image.UriSource.AbsolutePath.Substring(Image.UriSource.AbsolutePath.Length - 4);
+                    if (File.Exists(newpath) && newpath != Image.UriSource.AbsolutePath)
+                        File.Delete(newpath);
                     File.Copy(Image.UriSource.AbsolutePath, newpath);
                     Image.UriSource = new Uri(newpath);
                     writer.WriteLine(Image.UriSource.AbsolutePath);
@@ -91,7 +93,7 @@ namespace GameCreator
             {
                 this.Name = reader.ReadLine();
                 string s = reader.ReadLine();
-                if (s != "PropertyNotSet")
+                if (s != MainViewModel.PROPERTYNOTSET)
                 {
                     this.Image = new BitmapImage(new Uri(s));
                 }

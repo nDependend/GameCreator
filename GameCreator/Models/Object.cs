@@ -69,11 +69,11 @@ namespace GameCreator
                 if (this.Class != null)
                     writer.WriteLine(this.Class.Name);
                 else
-                    writer.WriteLine("PropertyNotSet");
+                    writer.WriteLine(MainViewModel.PROPERTYNOTSET);
                 if (this.Image != null)
                     writer.WriteLine(this.Image.Name);
                 else
-                    writer.WriteLine("PropertyNotSet");
+                    writer.WriteLine(MainViewModel.PROPERTYNOTSET);
                 writer.Flush();
             }
             finally
@@ -90,13 +90,13 @@ namespace GameCreator
                 this.Name = reader.ReadLine();
                 string s = reader.ReadLine();
                 //Class
-                if(s != "PropertyNotSet")
+                if(s != MainViewModel.PROPERTYNOTSET)
                 {
                     this.Class = _Game.Classes.Where(x => x.Name == s).First();
                 }
                 s = reader.ReadLine();
                 //Image
-                if(s != "PropertyNotSet")
+                if(s != MainViewModel.PROPERTYNOTSET)
                 {
                     this.Image = _Game.Images.Where(x => x.Name == s).First();
                 }

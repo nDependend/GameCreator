@@ -46,4 +46,9 @@
     <!-- Save/Load -->
     <System:String x:Key="FileCorrupt">The file is corrupt.</System:String>
 
+    <!--Item properties -->
+    <System:String x:Key="BackgroundImage">Background</System:String>
+    <System:String x:Key="BackgroundImageLayout">Backgroundlayout</System:String>
+    <System:String x:Key="Size">Size</System:String>
+
 </ResourceDictionary>

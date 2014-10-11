@@ -45,4 +45,9 @@
     
     <!--Load/Save -->
     <System:String x:Key="FileCorrupt">Die Datei ist nicht vom benötigten Typ oder ist beschädigt.</System:String>
+    
+    <!--Item properties -->
+    <System:String x:Key="BackgroundImage">Hintergrund</System:String>
+    <System:String x:Key="BackgroundImageLayout">Hintergrund-Layout</System:String>
+    <System:String x:Key="Size">Maße</System:String>
 </ResourceDictionary>

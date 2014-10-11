@@ -61,6 +61,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\libraries\System.Windows.Interactivity.dll</HintPath>
@@ -87,7 +88,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Extensions\Controls\StageEditor.xaml.cs">
+      <DependentUpon>StageEditor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Extensions\Converter\ActiveItemConverter.cs" />
+    <Compile Include="Extensions\Converter\ImageToBrushConverter.cs" />
     <Compile Include="Extensions\Converter\NullObjectToBooleanConverter.cs" />
     <Compile Include="Models\Class.cs" />
     <Compile Include="Models\Event.cs" />
@@ -107,6 +112,10 @@
     <Compile Include="ViewModels\PaneViewModel.cs" />
     <Compile Include="Views\Pane\PanesStyleSelector.cs" />
     <Compile Include="Views\Pane\PanesTemplateSelector.cs" />
+    <Page Include="Extensions\Controls\StageEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
