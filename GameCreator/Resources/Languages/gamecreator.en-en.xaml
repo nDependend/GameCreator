@@ -45,6 +45,7 @@
     
     <!-- Save/Load -->
     <System:String x:Key="FileCorrupt">The file is corrupt.</System:String>
+    <System:String x:Key="UnsavedChanges">There are unsaved changes. Do you want to save them?</System:String>
 
     <!--Item properties -->
     <System:String x:Key="BackgroundImage">Background</System:String>

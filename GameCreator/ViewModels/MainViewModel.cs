@@ -61,6 +61,20 @@ namespace GameCreator
                 SetProperty(value, ref _CurrentGamePath);
             }
         }
+
+        private bool _Dirty;
+        public bool Dirty
+        {
+            get
+            {
+                return _Dirty;
+            }
+            set
+            {
+                SetProperty(value, ref _Dirty);
+            }
+        }
+
         #region Tabs
         ObservableCollection<ViewModels.PaneViewModel> openedItems = new ObservableCollection<ViewModels.PaneViewModel>();
         public ObservableCollection<ViewModels.PaneViewModel> OpenedItems

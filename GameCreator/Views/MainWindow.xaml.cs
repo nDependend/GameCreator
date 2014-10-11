@@ -49,6 +49,7 @@ namespace GameCreator
                                 MainViewModel.Instance.CurrentGame.Levels.Add(new GC_Level(name, MainViewModel.Instance.CurrentGame));
                                 break;
                         }
+                        MainViewModel.Instance.Dirty = true;
                     });
                 return _AddItem;
             }
@@ -97,6 +98,7 @@ namespace GameCreator
                                 }
                                 break;
                         }
+                        MainViewModel.Instance.Dirty = false;
                     });
                 }
                 return _LoadGame;
@@ -118,6 +120,7 @@ namespace GameCreator
                         }
                         else
                             SaveGameAs.Execute(parameter);
+                        MainViewModel.Instance.Dirty = false;
                     });
                 }
                 return _SaveGame;
@@ -144,6 +147,7 @@ namespace GameCreator
                             MainViewModel.Instance.CurrentGame.Save(dialog.FileName);
                             MainViewModel.Instance.CurrentGamePath = dialog.FileName;
                         }
+                        MainViewModel.Instance.Dirty = false;
                     });
                 }
                 return _SaveGameAs;
@@ -159,6 +163,15 @@ namespace GameCreator
                 {
                     _CloseApplication = new RelayCommand((object parameter) =>
                     {
+                        if(MainViewModel.Instance.Dirty)
+                        {
+                            MessageBoxResult res = System.Windows.MessageBox.Show((string)Application.Current.FindResource("UnsavedChanges"), "", 
+                                MessageBoxButton.YesNoCancel, MessageBoxImage.Warning);
+                            if (res == MessageBoxResult.Yes)
+                                _SaveGame.Execute(parameter);
+                            else if (res == MessageBoxResult.Cancel)
+                                return;
+                        }
                         this.Close();
                     });
                 }
@@ -198,6 +211,7 @@ namespace GameCreator
                                 MainViewModel.Instance.CurrentGame.Levels.Clear();
                                 break;
                         }
+                        MainViewModel.Instance.Dirty = true;
                     });
                 }
                 return _DeleteAll;
@@ -223,6 +237,7 @@ namespace GameCreator
                             MainViewModel.Instance.CurrentGame.Objects.Remove(item as GC_Object);
                         else if (item.GetType() == typeof(GC_Level))
                             MainViewModel.Instance.CurrentGame.Levels.Remove(item as GC_Level);
+                        MainViewModel.Instance.Dirty = true;
                     });
                 }
                 return _DeleteItem;
@@ -257,6 +272,7 @@ namespace GameCreator
                             }
                             MainViewModel.Instance.ActiveItem = model;
                         }
+                        MainViewModel.Instance.Dirty = true;
                     });
                 }
                 return _EditItem;
@@ -377,6 +393,7 @@ namespace GameCreator
                                 }
                                 break;
                         }
+                        MainViewModel.Instance.Dirty = true;
                     });
                 }
                 return _PasteItem;
@@ -396,6 +413,7 @@ namespace GameCreator
                         {
                             (item as ViewModels.PaneViewModel).AssignChanges();
                         }
+                        MainViewModel.Instance.Dirty = true;
                     });
                 }
                 return _AssignChanges;

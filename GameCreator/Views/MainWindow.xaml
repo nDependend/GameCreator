@@ -30,7 +30,6 @@
             </Style.Triggers>
         </Style>
     </Window.Style>
-
     <Grid>
         <DockPanel>
             <StackPanel DockPanel.Dock="Top">
