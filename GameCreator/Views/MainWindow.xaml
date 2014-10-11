@@ -203,11 +203,11 @@
                                                     <RowDefinition Height="Auto"/>
                                                 </Grid.RowDefinitions>
 
-                                                <TextBlock Grid.Row="0" Grid.Column="0" Height="23" VerticalAlignment="Top" Margin="2,2,6,2">
-                                                <Run Text="{DynamicResource Name}"/>
-                                                <Run Text=":"/>
+                                                <TextBlock Grid.Row="0" Grid.Column="0" Height="23" VerticalAlignment="Top" Margin="2,6,3,6">
+                                                    <Run Text="{DynamicResource Name}"/>
+                                                    <Run Text=":"/>
                                                 </TextBlock>
-                                                <TextBox Text="{Binding Title, Mode=TwoWay}" Grid.Row="0" Grid.Column="1" Height="23" VerticalAlignment="Top"/>
+                                                <TextBox Text="{Binding Title, Mode=TwoWay}" Grid.Row="0" Grid.Column="1" Height="23" VerticalAlignment="Top" Margin="3,6,2,6"/>
 
                                             </Grid>
                                         </StackPanel>
@@ -232,14 +232,14 @@
                                                     <RowDefinition Height="Auto"/>
                                                 </Grid.RowDefinitions>
 
-                                                <TextBlock Grid.Row="0" Grid.Column="0" Height="23" VerticalAlignment="Top" Margin="2,2,6,2">
+                                                <TextBlock Grid.Row="0" Grid.Column="0" Height="23" VerticalAlignment="Top" Margin="2,6,3,6">
                                                     <Run Text="{DynamicResource Name}"/>
                                                     <Run Text=":"/>
                                                 </TextBlock>
-                                                <TextBox Text="{Binding Title, Mode=TwoWay}" Grid.Row="0" Grid.Column="1" Height="23" VerticalAlignment="Top"/>
+                                                <TextBox Text="{Binding Title, Mode=TwoWay}" Grid.Row="0" Grid.Column="1" Height="23" VerticalAlignment="Top" Margin="3,6,2,6"/>
 
                                             </Grid>
-                                            <Button Command="{Binding ElementName=window, Path=BrowseImage}" CommandParameter="{Binding}">
+                                            <Button Command="{Binding ElementName=window, Path=BrowseImage}" CommandParameter="{Binding}"  Margin="2,6,2,6">
                                                 <TextBlock Text="{DynamicResource Browse}"/>
                                             </Button>
                                         </StackPanel>
@@ -265,25 +265,25 @@
                                                 <RowDefinition Height="Auto"/>
                                                 <RowDefinition Height="Auto"/>
                                             </Grid.RowDefinitions>
-                                            <TextBlock Grid.Row="0" Grid.Column="0" Height="23" VerticalAlignment="Top" Margin="2,2,6,2">
+                                            <TextBlock Grid.Row="0" Grid.Column="0" Height="23" VerticalAlignment="Top" Margin="2,6,3,6">
                                                 <Run Text="{DynamicResource Name}"/>
                                                 <Run Text=":"/>
                                             </TextBlock>
-                                            <TextBox Text="{Binding Title, Mode=TwoWay}" Grid.Row="0" Grid.Column="1" Height="23" VerticalAlignment="Top"/>
-                                                
-                                            <TextBlock Grid.Row="1" Grid.Column="0" Height="23" VerticalAlignment="Top" Margin="2,2,6,2">
+                                            <TextBox Text="{Binding Title, Mode=TwoWay}" Grid.Row="0" Grid.Column="1" Height="23" VerticalAlignment="Top" Margin="3,6,2,6"/>
+
+                                            <TextBlock Grid.Row="1" Grid.Column="0" Height="23" VerticalAlignment="Top" Margin="2,6,3,6">
                                                 <Run Text="{DynamicResource Class}"/>
                                                 <Run Text=":"/>
                                             </TextBlock>
                                             <ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Item.Game.Classes, Mode=OneWay}" DisplayMemberPath="Name"
-                                                        SelectedItem="{Binding Class, Mode=TwoWay}" />
+                                                        SelectedItem="{Binding Class, Mode=TwoWay}" Margin="3,6,2,6"/>
 
-                                            <TextBlock Grid.Row="2" Grid.Column="0" Height="23" VerticalAlignment="Top" Margin="2,2,6,2">
+                                            <TextBlock Grid.Row="2" Grid.Column="0" Height="23" VerticalAlignment="Top" Margin="2,6,3,6">
                                                 <Run Text="{DynamicResource Image}"/>
                                                 <Run Text=":"/>
                                             </TextBlock>
                                             <ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding Item.Game.Images, Mode=OneWay}" DisplayMemberPath="Name"
-                                                        SelectedItem="{Binding Image, Mode=TwoWay}" />
+                                                        SelectedItem="{Binding Image, Mode=TwoWay}" Margin="3,6,2,6" />
                                         </Grid>     
                                     </Border>
                                     <Canvas>
@@ -305,11 +305,11 @@
                                                 <RowDefinition Height="Auto"/>
                                             </Grid.RowDefinitions>
 
-                                            <TextBlock Grid.Row="0" Grid.Column="0" Height="23" VerticalAlignment="Top" Margin="2,2,6,2">
+                                            <TextBlock Grid.Row="0" Grid.Column="0" Height="23" VerticalAlignment="Top" Margin="2,6,3,6">
                                                 <Run Text="{DynamicResource Name}"/>
                                                 <Run Text=":"/>
                                             </TextBlock>
-                                            <TextBox Text="{Binding Title, Mode=TwoWay}" Grid.Row="0" Grid.Column="1" Height="23" VerticalAlignment="Top"/>
+                                            <TextBox Text="{Binding Title, Mode=TwoWay}" Grid.Row="0" Grid.Column="1" Height="23" VerticalAlignment="Top" Margin="3,6,2,6"/>
                                         
                                         </Grid>
                                     </Border>
